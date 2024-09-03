@@ -11,6 +11,5 @@ final class ListVideosRouter: ListVideosRouterInputProtocol {
     weak var entry: UIViewController?
     
     func presentVideoDetail(_ video: Video) {
-        
     }
 }

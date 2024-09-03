@@ -23,6 +23,11 @@
 		A5BCE3F42C8601D4004BE4A8 /* ListVideosRouterInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3F32C8601D4004BE4A8 /* ListVideosRouterInputProtocol.swift */; };
 		A5BCE3F62C86096B004BE4A8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3F52C86096B004BE4A8 /* Constants.swift */; };
 		A5BCE3F82C860A35004BE4A8 /* VideoApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3F72C860A35004BE4A8 /* VideoApiManager.swift */; };
+		A5BCE3FA2C870C45004BE4A8 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3F92C870C45004BE4A8 /* VideoCell.swift */; };
+		A5BCE3FC2C8713E5004BE4A8 /* ListVideosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3FB2C8713E5004BE4A8 /* ListVideosDataSource.swift */; };
+		A5BCE3FE2C8715E4004BE4A8 /* ListVideosDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3FD2C8715E4004BE4A8 /* ListVideosDelegate.swift */; };
+		A5BCE4002C87442B004BE4A8 /* VideoThumbnailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3FF2C87442B004BE4A8 /* VideoThumbnailManager.swift */; };
+		A5BCE4072C87723C004BE4A8 /* VideoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE4062C87723C004BE4A8 /* VideoDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +49,11 @@
 		A5BCE3F32C8601D4004BE4A8 /* ListVideosRouterInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVideosRouterInputProtocol.swift; sourceTree = "<group>"; };
 		A5BCE3F52C86096B004BE4A8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A5BCE3F72C860A35004BE4A8 /* VideoApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoApiManager.swift; sourceTree = "<group>"; };
+		A5BCE3F92C870C45004BE4A8 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		A5BCE3FB2C8713E5004BE4A8 /* ListVideosDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVideosDataSource.swift; sourceTree = "<group>"; };
+		A5BCE3FD2C8715E4004BE4A8 /* ListVideosDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVideosDelegate.swift; sourceTree = "<group>"; };
+		A5BCE3FF2C87442B004BE4A8 /* VideoThumbnailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoThumbnailManager.swift; sourceTree = "<group>"; };
+		A5BCE4062C87723C004BE4A8 /* VideoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +86,7 @@
 		A5BCE3C42C85CEC6004BE4A8 /* videoGallery */ = {
 			isa = PBXGroup;
 			children = (
-				A5BCE3DC2C85DEB1004BE4A8 /* VideoDetailModule */,
+				A5BCE3DC2C85DEB1004BE4A8 /* VideoPlayerModule */,
 				A5BCE3DA2C85DE9E004BE4A8 /* ListVideosModule */,
 				A5BCE3D92C85DCA4004BE4A8 /* Managers */,
 				A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */,
@@ -93,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				A5BCE3F72C860A35004BE4A8 /* VideoApiManager.swift */,
+				A5BCE3FF2C87442B004BE4A8 /* VideoThumbnailManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -106,15 +117,22 @@
 				A5BCE3DF2C85FC2D004BE4A8 /* Presenter */,
 				A5BCE3DE2C85FC22004BE4A8 /* Interactor */,
 				A5BCE3DD2C85DFFF004BE4A8 /* View */,
+				A5BCE3FB2C8713E5004BE4A8 /* ListVideosDataSource.swift */,
+				A5BCE3FD2C8715E4004BE4A8 /* ListVideosDelegate.swift */,
 			);
 			path = ListVideosModule;
 			sourceTree = "<group>";
 		};
-		A5BCE3DC2C85DEB1004BE4A8 /* VideoDetailModule */ = {
+		A5BCE3DC2C85DEB1004BE4A8 /* VideoPlayerModule */ = {
 			isa = PBXGroup;
 			children = (
+				A5BCE4052C877209004BE4A8 /* Configurator */,
+				A5BCE4042C877202004BE4A8 /* Router */,
+				A5BCE4032C8771FB004BE4A8 /* Presenter */,
+				A5BCE4022C8771F3004BE4A8 /* Interactor */,
+				A5BCE4012C8771E5004BE4A8 /* View */,
 			);
-			path = VideoDetailModule;
+			path = VideoPlayerModule;
 			sourceTree = "<group>";
 		};
 		A5BCE3DD2C85DFFF004BE4A8 /* View */ = {
@@ -122,6 +140,7 @@
 			children = (
 				A5BCE3C92C85CEC6004BE4A8 /* ListVideosViewController.swift */,
 				A5BCE3ED2C85FFE0004BE4A8 /* ListVideosViewInputProtocol.swift */,
+				A5BCE3F92C870C45004BE4A8 /* VideoCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -165,6 +184,42 @@
 			isa = PBXGroup;
 			children = (
 				A5BCE3E72C85FE09004BE4A8 /* ListVideosConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		A5BCE4012C8771E5004BE4A8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A5BCE4062C87723C004BE4A8 /* VideoDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A5BCE4022C8771F3004BE4A8 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		A5BCE4032C8771FB004BE4A8 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A5BCE4042C877202004BE4A8 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		A5BCE4052C877209004BE4A8 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Configurator;
 			sourceTree = "<group>";
@@ -239,11 +294,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5BCE4072C87723C004BE4A8 /* VideoDetailViewController.swift in Sources */,
 				A5BCE3F82C860A35004BE4A8 /* VideoApiManager.swift in Sources */,
 				A5BCE3F22C86012A004BE4A8 /* ListVideosOutputProtocol.swift in Sources */,
 				A5BCE3EE2C85FFE0004BE4A8 /* ListVideosViewInputProtocol.swift in Sources */,
 				A5BCE3EC2C85FEF9004BE4A8 /* ListVideosRouter.swift in Sources */,
 				A5BCE3CA2C85CEC6004BE4A8 /* ListVideosViewController.swift in Sources */,
+				A5BCE3FA2C870C45004BE4A8 /* VideoCell.swift in Sources */,
+				A5BCE4002C87442B004BE4A8 /* VideoThumbnailManager.swift in Sources */,
+				A5BCE3FC2C8713E5004BE4A8 /* ListVideosDataSource.swift in Sources */,
+				A5BCE3FE2C8715E4004BE4A8 /* ListVideosDelegate.swift in Sources */,
 				A5BCE3E32C85FCD6004BE4A8 /* Video.swift in Sources */,
 				A5BCE3E82C85FE09004BE4A8 /* ListVideosConfigurator.swift in Sources */,
 				A5BCE3EA2C85FEA5004BE4A8 /* ListVideosInteractor.swift in Sources */,

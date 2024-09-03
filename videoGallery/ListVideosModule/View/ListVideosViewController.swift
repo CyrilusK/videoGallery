@@ -9,9 +9,11 @@ import UIKit
 
 final class ListVideosViewController: UIViewController, ListVideosViewInputProtocol {
     var output: ListVideosOutputProtocol?
+    var indicatorLoading = UIActivityIndicatorView(style: .medium)
     
     var videosCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
@@ -22,7 +24,17 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
     }
     
     func setupUI() {
-        setupCollectionView()
+        self.setupCollectionView()
+        self.indicatorLoading.stopAnimating()
+    }
+        
+    func setupIndicator() {
+        view.backgroundColor = .systemGroupedBackground
+        indicatorLoading.translatesAutoresizingMaskIntoConstraints = false
+        indicatorLoading.startAnimating()
+        view.addSubview(indicatorLoading)
+        indicatorLoading.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        indicatorLoading.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     func reloadData() {
@@ -40,6 +52,7 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
             videosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             videosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
+        videosCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: K.reuseIdentifier)
     }
     
     func displayError(_ message: String) {

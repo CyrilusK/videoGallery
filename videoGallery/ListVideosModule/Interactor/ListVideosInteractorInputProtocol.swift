@@ -9,4 +9,5 @@ import UIKit
 
 protocol ListVideosInteractorInputProtocol: AnyObject {
     func fetchVideos() async
+    func getThumbnails(for videos: [Video]) async -> [UIImage?]
 }

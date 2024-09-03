@@ -19,4 +19,8 @@ final class ListVideosInteractor: ListVideosInteractorInputProtocol {
             output?.showError(error)
         }
     }
+    
+    func getThumbnails(for videos: [Video]) async -> [UIImage?] {
+        await VideoThumbnailManager().generateThumbnails(for: videos)
+    }
 }

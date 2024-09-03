@@ -14,4 +14,5 @@ struct K {
     static let networkError = "Network error:"
     static let serverError = "Failed to download image from server"
     static let urlAPI = "https://demo0015790.mockable.io"
+    static let reuseIdentifier = "VideoCell"
 }

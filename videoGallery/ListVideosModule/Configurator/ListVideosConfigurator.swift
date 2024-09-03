@@ -21,6 +21,9 @@ final class ListVideosConfigurator {
         interactor.output = presenter
         router.entry = view
         
+        view.videosCollectionView.dataSource = presenter.dataSource
+        view.videosCollectionView.delegate = presenter.delegate
+        
         return view
     }
 }

@@ -11,4 +11,5 @@ protocol ListVideosViewInputProtocol: AnyObject {
     func setupUI()
     func reloadData()
     func displayError(_ message: String)
+    func setupIndicator()
 }

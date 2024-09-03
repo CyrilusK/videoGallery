@@ -5,10 +5,15 @@
 //  Created by Cyril Kardash on 02.09.2024.
 //
 
-import Foundation
+import UIKit
 
 protocol ListVideosOutputProtocol: AnyObject {
+    var videos: [Video] { get }
+    
     func viewDidLoad()
     func didFetchVideos(_ videos: [Video])
     func showError(_ error: Error)
+    func getVideo(at indexPath: IndexPath) -> Video
+    func didSelectVideo(at indexPath: IndexPath)
+    func getThumbnail(at indexPath: IndexPath) -> UIImage?
 }
