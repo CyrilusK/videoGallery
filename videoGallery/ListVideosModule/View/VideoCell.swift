@@ -20,16 +20,15 @@ final class VideoCell: UICollectionViewCell {
     private let titleLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        label.numberOfLines = 2
-        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.textAlignment = .left
         return label
     }()
     
     private let durationLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
         label.textAlignment = .center
         label.textColor = .white
         label.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -38,9 +37,18 @@ final class VideoCell: UICollectionViewCell {
         return label
     }()
     
+    private let authorLabel : UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        label.textAlignment = .left
+        return label
+    }()
+    
     func configure(with video: Video, thumbnail: UIImage?) {
         titleLabel.text = video.title
         durationLabel.text = video.duration
+        authorLabel.text = video.author
         DispatchQueue.main.async {
             self.videoView.image = thumbnail
         }
@@ -51,20 +59,24 @@ final class VideoCell: UICollectionViewCell {
         contentView.addSubview(videoView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(durationLabel)
+        contentView.addSubview(authorLabel)
         
         NSLayoutConstraint.activate([
             videoView.topAnchor.constraint(equalTo: contentView.topAnchor),
             videoView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             videoView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            videoView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -35),
             
             titleLabel.topAnchor.constraint(equalTo: videoView.bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: videoView.leadingAnchor, constant: 5),
+            titleLabel.trailingAnchor.constraint(equalTo: videoView.trailingAnchor),
             
             durationLabel.trailingAnchor.constraint(equalTo: videoView.trailingAnchor, constant: -10),
             durationLabel.bottomAnchor.constraint(equalTo: videoView.bottomAnchor, constant: -5),
+            
+            authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            authorLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            authorLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
