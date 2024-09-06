@@ -8,5 +8,8 @@
 import UIKit
 
 protocol VideoPlayerViewInputProtocol: AnyObject {
-    func setupVideoPlayer(with video: Video)
+    func setupUI()
+    func setupVideoPlayer()
+    func playVideo()
+    func pauseVideo()
 }

@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import AVKit
 
 protocol VideoPlayerOutputProtocol: AnyObject {
     func viewDidLoad()
+    func viewDidAppear()
     func getVideoURL() -> URL?
+    func getVideo() -> Video
+    func didTapPlayPause()
+    func formatTime(seconds: Double) -> String
 }
