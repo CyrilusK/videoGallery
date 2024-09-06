@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import AVKit
 
 final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     weak var view: VideoPlayerViewInputProtocol?
@@ -16,6 +15,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     private var video: Video
     private var isPlaying = true
     private var isMuted = false
+    var isThumbSeek = false
     
     init(video: Video) {
         self.video = video
@@ -26,28 +26,55 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     }
     
     func viewDidAppear() {
-        view?.setupVideoPlayer()
-    }
-    
-    func getVideoURL() -> URL? {
-        URL(string: video.videoUrl)
-    }
-    
-    func getVideo() -> Video {
-        video
+        interactor?.loadVideo(url: video.videoUrl)
+        view?.setupVideoPlayerLayer(player: interactor?.getValuesPlayer())
     }
     
     func didTapPlayPause() {
         if isPlaying {
-            view?.pauseVideo()
+            interactor?.pauseVideo()
         }
         else {
-            view?.playVideo()
+            interactor?.playVideo()
         }
         isPlaying.toggle()
+        view?.updatePlayPauseButton(isPlaying: isPlaying)
     }
     
-    func formatTime(seconds: Double) -> String {
+    func didTapMute() {
+        isMuted.toggle()
+        interactor?.setMute(isMuted: isMuted)
+        view?.updateMuteButton(isMuted: isMuted)
+    }
+    
+    func didTapSkipForward() {
+        interactor?.skip(forward: true)
+    }
+    
+    func didTapSkipBackward() {
+        interactor?.skip(forward: false)
+    }
+    
+    
+    func didSeekToPosition(sliderValue: Float) {
+        interactor?.seekToPosition(sliderValue: sliderValue)
+    }
+    
+    func updateTime(currentTime: Float, totalTime: Float) {
+        let currentTimeFormatted = formatTime(seconds: currentTime)
+        let totalTimeFormatted = formatTime(seconds: totalTime)
+        
+        if !isThumbSeek {
+            view?.updateTimeSlider(percent: currentTime / totalTime)
+        }
+        view?.updateTimeLabels(currentTime: currentTimeFormatted, totalTime: totalTimeFormatted)
+    }
+    
+    func getFormattedDuration() -> String {
+        return formatTime(seconds: Float(interactor?.getDuration() ?? 0.0))
+    }
+    
+    private func formatTime(seconds: Float) -> String {
         let minutes = Int(seconds) / 60
         let seconds = Int(seconds) % 60
         return String(format: "%02d:%02d", minutes, seconds)

@@ -6,13 +6,17 @@
 //
 
 import UIKit
-import AVKit
 
 protocol VideoPlayerOutputProtocol: AnyObject {
+    var isThumbSeek: Bool { get set }
+    
     func viewDidLoad()
     func viewDidAppear()
-    func getVideoURL() -> URL?
-    func getVideo() -> Video
     func didTapPlayPause()
-    func formatTime(seconds: Double) -> String
+    func didTapMute()
+    func didTapSkipForward()
+    func didTapSkipBackward()
+    func didSeekToPosition(sliderValue: Float)
+    func updateTime(currentTime: Float, totalTime: Float)
+    func getFormattedDuration() -> String
 }

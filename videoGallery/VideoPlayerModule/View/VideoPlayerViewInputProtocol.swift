@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import AVKit
 
 protocol VideoPlayerViewInputProtocol: AnyObject {
     func setupUI()
-    func setupVideoPlayer()
-    func playVideo()
-    func pauseVideo()
+    func setupVideoPlayerLayer(player: AVPlayer?)
+    func updatePlayPauseButton(isPlaying: Bool)
+    func updateMuteButton(isMuted: Bool)
+    func updateTimeSlider(percent: Float)
+    func updateTimeLabels(currentTime: String, totalTime: String)
 }

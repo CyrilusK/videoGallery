@@ -15,4 +15,7 @@ struct K {
     static let serverError = "Failed to download image from server"
     static let urlAPI = "https://demo0015790.mockable.io"
     static let reuseIdentifier = "VideoCell"
+    static let skipInterval: Double = 10.0
+    static let timeObserverInterval: Double = 0.3
+
 }

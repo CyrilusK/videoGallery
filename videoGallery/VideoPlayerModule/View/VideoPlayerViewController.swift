@@ -10,7 +10,6 @@ import AVKit
 
 final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputProtocol {
     var output: VideoPlayerOutputProtocol?
-    private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
     
     private let viewVideoPlayer = UIView()
@@ -23,8 +22,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     private let currentTimeLabel = UILabel()
     private let totalTimeLabel = UILabel()
     
-    private var isThumbseek = false
-    
+    /// ЖЦ вьюконтроллера
     override func viewDidLoad() {
         super.viewDidLoad()
         output?.viewDidLoad()
@@ -48,6 +46,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         })
     }
     
+    /// Установка UI элементов
     func setupUI() {
         view.backgroundColor = .systemGroupedBackground
         setupViewVideoPlayer()
@@ -57,11 +56,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         setupTimeSlider()
     }
     
-    func setupVideoPlayer() {
-        guard let url = output?.getVideoURL() else {
-            return
-        }
-        player = AVPlayer(url: url)
+    func setupVideoPlayerLayer(player: AVPlayer?) {
         playerLayer = AVPlayerLayer(player: player)
         playerLayer?.videoGravity = .resizeAspect
         guard let playerLayer = playerLayer else {
@@ -73,8 +68,6 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         viewVideoPlayer.layer.addSublayer(currentTimeLabel.layer)
         viewVideoPlayer.layer.addSublayer(totalTimeLabel.layer)
         viewVideoPlayer.layer.addSublayer(timeSlider.layer)
-        addPeriodicTimeObserver()
-        playVideo()
     }
     
     private func setupViewVideoPlayer() {
@@ -124,24 +117,12 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         skipBackwardButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    @objc private func didTapSkipForward() {
-        guard let currentTime = player?.currentTime() else { return }
-        let seekTimeTen = CMTimeGetSeconds(currentTime).advanced(by: 10)
-        let seekTime = CMTime(seconds: seekTimeTen, preferredTimescale: 600)
-        player?.seek(to: seekTime)
-    }
-    
-    @objc private func didTapSkipBackward() {
-        guard let currentTime = player?.currentTime() else { return }
-        let seekTimeTen = CMTimeGetSeconds(currentTime).advanced(by: -10)
-        let seekTime = CMTime(seconds: seekTimeTen, preferredTimescale: 600)
-        player?.seek(to: seekTime)
-    }
-    
     private func setupMuteButton() {
         muteButton.setImage(UIImage(systemName: "speaker.slash.fill"), for: .normal)
         muteButton.tintColor = .white
-        //muteButton.addTarget(self, action: #selector(didTapMute), for: .touchUpInside)
+        muteButton.addTarget(self, action: #selector(didTapMute), for: .touchUpInside)
+        muteButton.translatesAutoresizingMaskIntoConstraints = false
+        viewVideoPlayer.addSubview(muteButton)
     }
     
     private func setupTimeLabels() {
@@ -153,7 +134,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         
         totalTimeLabel.textColor = .white
         totalTimeLabel.font = .monospacedDigitSystemFont(ofSize: 14, weight: .regular)
-        totalTimeLabel.text = output!.getVideo().duration
+        totalTimeLabel.text = output?.getFormattedDuration()
         totalTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         viewVideoPlayer.addSubview(totalTimeLabel)
         
@@ -168,7 +149,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     
     private func setupTimeSlider() {
         timeSlider.minimumValue = 0
-        //timeSlider.setThumbImage(UIImage(), for: .normal)
+        timeSlider.setThumbImage(UIImage(), for: .normal)
         timeSlider.minimumTrackTintColor = .white
         timeSlider.maximumTrackTintColor = .lightGray
         timeSlider.addTarget(self, action: #selector(didChangeSliderValue), for: .valueChanged)
@@ -181,46 +162,43 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         ])
     }
     
-    @objc private func didChangeSliderValue() {
-        guard let duration = player?.currentItem?.duration else { return }
-        isThumbseek = true
-        let totalTime = CMTimeGetSeconds(duration)
-        let value = totalTime * Float64(timeSlider.value)
-        let seekTime = CMTime(seconds: value, preferredTimescale: 600)
-        player?.seek(to: seekTime, completionHandler: { completed in
-            if completed {
-                self.isThumbseek = false
-            }
-        })
+    func updatePlayPauseButton(isPlaying: Bool) {
+        let buttonImage = isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill")
+        playPauseButton.setImage(buttonImage, for: .normal)
     }
     
-    func playVideo() {
-        player?.play()
+    func updateMuteButton(isMuted: Bool) {
+        let muteImage = isMuted ? UIImage(systemName: "speaker.wave.2.fill") : UIImage(systemName: "speaker.slash.fill")
+        muteButton.setImage(muteImage, for: .normal)
     }
     
-    func pauseVideo() {
-        playPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-        player?.pause()
+    func updateTimeSlider(percent: Float) {
+        timeSlider.value = percent
     }
     
+    func updateTimeLabels(currentTime: String, totalTime: String) {
+        currentTimeLabel.text = currentTime
+        totalTimeLabel.text = totalTime
+    }
+    
+    ///Обработчики нажатий
     @objc private func didTapPlayPause() {
-        playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         output?.didTapPlayPause()
     }
     
-    private func addPeriodicTimeObserver() {
-        let interval = CMTime(seconds: 0.3, preferredTimescale: 600)
-        player?.addPeriodicTimeObserver(forInterval: interval, queue: .main, using: { [weak self] time in
-            guard let self = self, let player = self.player, let currentItem = player.currentItem else { return }
-            
-            let currentTime = CMTimeGetSeconds(player.currentTime())
-            let totalTime = CMTimeGetSeconds(currentItem.duration)
-            
-            if !isThumbseek {
-                self.timeSlider.value = Float(currentTime / totalTime)
-            }
-            self.currentTimeLabel.text = self.output?.formatTime(seconds: currentTime)
-            self.totalTimeLabel.text = self.output?.formatTime(seconds: totalTime)
-        })
+    @objc private func didTapMute() {
+        output?.didTapMute()
+    }
+    
+    @objc private func didTapSkipForward() {
+        output?.didTapSkipForward()
+    }
+    
+    @objc private func didTapSkipBackward() {
+        output?.didTapSkipBackward()
+    }
+    
+    @objc private func didChangeSliderValue() {
+        output?.didSeekToPosition(sliderValue: timeSlider.value)
     }
 }
