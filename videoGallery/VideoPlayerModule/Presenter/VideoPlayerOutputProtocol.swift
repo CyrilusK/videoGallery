@@ -17,6 +17,7 @@ protocol VideoPlayerOutputProtocol: AnyObject {
     func didTapSkipForward()
     func didTapSkipBackward()
     func didSeekToPosition(sliderValue: Float)
+    func didClose()
     func updateTime(currentTime: Float, totalTime: Float)
     func getFormattedDuration() -> String
 }

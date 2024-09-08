@@ -60,6 +60,10 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         interactor?.seekToPosition(sliderValue: sliderValue)
     }
     
+    func didClose() {
+        router?.dismiss()
+    }
+    
     func updateTime(currentTime: Float, totalTime: Float) {
         let currentTimeFormatted = formatTime(seconds: currentTime)
         let totalTimeFormatted = formatTime(seconds: totalTime)

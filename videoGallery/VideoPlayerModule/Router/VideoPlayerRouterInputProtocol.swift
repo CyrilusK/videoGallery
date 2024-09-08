@@ -8,5 +8,5 @@
 import UIKit
 
 protocol VideoPlayerRouterInputProtocol {
-    
+    func dismiss()
 }

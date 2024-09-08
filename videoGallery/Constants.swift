@@ -17,5 +17,6 @@ struct K {
     static let reuseIdentifier = "VideoCell"
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
+    static let alphaComponent: Double = 0.1
 
 }
