@@ -20,4 +20,5 @@ protocol VideoPlayerOutputProtocol: AnyObject {
     func didClose()
     func updateTime(currentTime: Float, totalTime: Float)
     func getFormattedDuration() -> String
+    func startHideControlsTimer() 
 }

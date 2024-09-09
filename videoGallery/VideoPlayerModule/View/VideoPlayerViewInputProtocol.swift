@@ -15,4 +15,6 @@ protocol VideoPlayerViewInputProtocol: AnyObject {
     func updateMuteButton(isMuted: Bool)
     func updateTimeSlider(percent: Float)
     func updateTimeLabels(currentTime: String, totalTime: String)
+    func hideControls()
+    func showControls()
 }

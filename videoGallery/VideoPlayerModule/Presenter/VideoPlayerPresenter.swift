@@ -17,12 +17,15 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     private var isMuted = false
     var isThumbSeek = false
     
+    private var hideControlsTimer: Timer?
+    
     init(video: Video) {
         self.video = video
     }
     
     func viewDidLoad() {
         view?.setupUI()
+        startHideControlsTimer()
     }
     
     func viewDidAppear() {
@@ -39,25 +42,30 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         }
         isPlaying.toggle()
         view?.updatePlayPauseButton(isPlaying: isPlaying)
+        view?.showControls()
     }
     
     func didTapMute() {
         isMuted.toggle()
         interactor?.setMute(isMuted: isMuted)
         view?.updateMuteButton(isMuted: isMuted)
+        view?.showControls()
     }
     
     func didTapSkipForward() {
         interactor?.skip(forward: true)
+        view?.showControls()
     }
     
     func didTapSkipBackward() {
         interactor?.skip(forward: false)
+        view?.showControls()
     }
     
     
     func didSeekToPosition(sliderValue: Float) {
         interactor?.seekToPosition(sliderValue: sliderValue)
+        view?.showControls()
     }
     
     func didClose() {
@@ -82,5 +90,14 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         let minutes = Int(seconds) / 60
         let seconds = Int(seconds) % 60
         return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    func startHideControlsTimer() {
+        hideControlsTimer?.invalidate()
+        hideControlsTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(hideControls), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func hideControls() {
+        view?.hideControls()
     }
 }

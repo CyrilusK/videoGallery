@@ -38,7 +38,9 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
-        if UIDevice.current.orientation.isPortrait {
+        
+        guard let windowInterface = self.view.window?.windowScene?.interfaceOrientation else { return }
+        if windowInterface.isPortrait {
             videoPlayerHeightConstraint?.constant = viewVideoPlayer.frame.width / 3
             fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
         }
@@ -93,6 +95,9 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             viewVideoPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             videoPlayerHeightConstraint!
         ])
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
+        viewVideoPlayer.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupCenterControlsStackView() {
@@ -236,6 +241,31 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         totalTimeLabel.text = totalTime
     }
     
+    func hideControls() {
+        UIView.animate(withDuration: 0.5) {
+            self.centerControlsStackView.alpha = 0
+            self.muteButton.alpha = 0
+            self.closeButton.alpha = 0
+            self.fullScreenButton.alpha = 0
+            self.timeSlider.alpha = 0
+            self.currentTimeLabel.alpha = 0
+            self.totalTimeLabel.alpha = 0
+        }
+    }
+    
+    func showControls() {
+        UIView.animate(withDuration: 0.5) {
+            self.centerControlsStackView.alpha = 1
+            self.muteButton.alpha = 1
+            self.closeButton.alpha = 1
+            self.fullScreenButton.alpha = 1
+            self.timeSlider.alpha = 1
+            self.currentTimeLabel.alpha = 1
+            self.totalTimeLabel.alpha = 1
+        }
+        output?.startHideControlsTimer()
+    }
+    
     ///Обработчики нажатий
     @objc private func didTapPlayPause() {
         output?.didTapPlayPause()
@@ -263,13 +293,17 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     
     @objc private func didTapFullScreen() {
         guard let windowScene = view.window?.windowScene else { return }
+        
         if windowScene.interfaceOrientation == .portrait {
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
-            fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
+            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape)) 
         }
         else {
             windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-            fullScreenButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left"), for: .normal)
         }
+        showControls()
+    }
+    
+    @objc private func didTapScreen() {
+        showControls()
     }
 }
