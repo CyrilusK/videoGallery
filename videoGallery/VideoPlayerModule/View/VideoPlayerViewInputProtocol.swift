@@ -17,4 +17,7 @@ protocol VideoPlayerViewInputProtocol: AnyObject {
     func updateTimeLabels(currentTime: String, totalTime: String)
     func hideControls()
     func showControls()
+    func updatePlayPauseButtonToReplay()
+    func updateTitleChangeSpeedButton(title: String)
+    func checkSpeedControlFeature(isEnabled: Bool)
 }

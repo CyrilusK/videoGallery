@@ -21,9 +21,11 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     private let skipBackwardButton = UIButton(type: .system)
     private let closeButton = UIButton(type: .system)
     private let fullScreenButton = UIButton(type: .system)
+    private let changeSpeedButton = UIButton(type: .system)
     private let timeSlider = UISlider()
     private let currentTimeLabel = UILabel()
     private let totalTimeLabel = UILabel()
+    private let speedSegmentedControl = UISegmentedControl()
     
     /// ЖЦ вьюконтроллера
     override func viewDidLoad() {
@@ -80,6 +82,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         viewVideoPlayer.layer.addSublayer(closeButton.layer)
         viewVideoPlayer.layer.addSublayer(muteButton.layer)
         viewVideoPlayer.layer.addSublayer(fullScreenButton.layer)
+        viewVideoPlayer.layer.addSublayer(changeSpeedButton.layer)
+        viewVideoPlayer.layer.addSublayer(speedSegmentedControl.layer)
     }
     
     private func setupViewVideoPlayer() {
@@ -149,7 +153,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             muteButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
             muteButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -10),
-            muteButton.heightAnchor.constraint(equalTo: closeButton.heightAnchor)
+            muteButton.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
+            muteButton.widthAnchor.constraint(equalTo: closeButton.widthAnchor)
         ])
     }
     
@@ -203,6 +208,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
             closeButton.trailingAnchor.constraint(equalTo: viewVideoPlayer.trailingAnchor, constant: -10),
+            closeButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
     
@@ -219,6 +225,46 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             fullScreenButton.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 10),
             fullScreenButton.heightAnchor.constraint(equalTo: closeButton.heightAnchor),
             fullScreenButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor)
+        ])
+    }
+    
+    private func setupSpeedButtonAndControl() {
+        changeSpeedButton.setTitle("1.0x", for: .normal)
+        changeSpeedButton.setTitleColor(.white, for: .normal)
+        changeSpeedButton.translatesAutoresizingMaskIntoConstraints = false
+        changeSpeedButton.backgroundColor = UIColor.black.withAlphaComponent(K.alphaComponent)
+        changeSpeedButton.addTarget(self, action: #selector(didTapChangeSpeedButton), for: .touchUpInside)
+        changeSpeedButton.translatesAutoresizingMaskIntoConstraints = false
+        viewVideoPlayer.addSubview(changeSpeedButton)
+        
+        let normalTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white]
+        let selectedTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.black]
+        speedSegmentedControl.insertSegment(withTitle: "0.5x", at: 0, animated: false)
+        speedSegmentedControl.insertSegment(withTitle: "1.0x", at: 1, animated: false)
+        speedSegmentedControl.insertSegment(withTitle: "1.5x", at: 2, animated: false)
+        speedSegmentedControl.insertSegment(withTitle: "2.0x", at: 3, animated: false)
+        speedSegmentedControl.backgroundColor = UIColor.black.withAlphaComponent(K.alphaComponent)
+        speedSegmentedControl.selectedSegmentTintColor = .white
+        speedSegmentedControl.selectedSegmentIndex = 1
+        speedSegmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
+        speedSegmentedControl.setTitleTextAttributes(selectedTextAttributes, for: .selected)
+        speedSegmentedControl.addTarget(self, action: #selector(didChangeSpeed), for: .valueChanged)
+        speedSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        speedSegmentedControl.isHidden = true
+        viewVideoPlayer.addSubview(speedSegmentedControl)
+        
+        NSLayoutConstraint.activate([
+            changeSpeedButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
+            changeSpeedButton.leadingAnchor.constraint(equalTo: fullScreenButton.trailingAnchor, constant: 10),
+            changeSpeedButton.heightAnchor.constraint(equalTo: fullScreenButton.heightAnchor),
+            changeSpeedButton.widthAnchor.constraint(equalTo: fullScreenButton.widthAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            speedSegmentedControl.topAnchor.constraint(equalTo: changeSpeedButton.bottomAnchor, constant: 10),
+            speedSegmentedControl.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 10),
+            speedSegmentedControl.widthAnchor.constraint(equalToConstant: 4 * 40),
+            speedSegmentedControl.heightAnchor.constraint(equalTo: changeSpeedButton.widthAnchor)
         ])
     }
     
@@ -250,6 +296,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             self.timeSlider.alpha = 0
             self.currentTimeLabel.alpha = 0
             self.totalTimeLabel.alpha = 0
+            self.changeSpeedButton.alpha = 0
+            self.speedSegmentedControl.alpha = 0
         }
     }
     
@@ -262,8 +310,23 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             self.timeSlider.alpha = 1
             self.currentTimeLabel.alpha = 1
             self.totalTimeLabel.alpha = 1
+            self.changeSpeedButton.alpha = 1
+            self.speedSegmentedControl.alpha = 1
         }
         output?.startHideControlsTimer()
+    }
+    
+    func updatePlayPauseButtonToReplay() {
+        playPauseButton.setImage(UIImage(systemName: "memories"), for: .normal)
+    }
+    
+    func updateTitleChangeSpeedButton(title: String) {
+        changeSpeedButton.setTitle(title, for: .normal)
+    }
+    
+    func checkSpeedControlFeature(isEnabled: Bool) {
+        setupSpeedButtonAndControl()
+        changeSpeedButton.isHidden = !isEnabled
     }
     
     ///Обработчики нажатий
@@ -295,15 +358,28 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         guard let windowScene = view.window?.windowScene else { return }
         
         if windowScene.interfaceOrientation == .portrait {
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape)) 
+            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+            AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
         }
         else {
             windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+            AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
         }
         showControls()
     }
     
     @objc private func didTapScreen() {
         showControls()
+    }
+    
+    @objc private func didTapChangeSpeedButton() {
+        speedSegmentedControl.isHidden.toggle()
+        showControls()
+    }
+    
+    @objc private func didChangeSpeed() {
+        let selectedIndex = speedSegmentedControl.selectedSegmentIndex
+        output?.didChangeSpeed(selectedIndex: selectedIndex)
+        speedSegmentedControl.isHidden.toggle()
     }
 }

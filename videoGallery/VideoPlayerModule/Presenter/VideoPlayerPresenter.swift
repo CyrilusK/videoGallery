@@ -26,6 +26,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     func viewDidLoad() {
         view?.setupUI()
         startHideControlsTimer()
+        interactor?.setupRemoteConfig()
     }
     
     func viewDidAppear() {
@@ -38,7 +39,11 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
             interactor?.pauseVideo()
         }
         else {
-            interactor?.playVideo()
+            if let player = interactor?.getValuesPlayer(), player.currentTime() == player.currentItem?.duration {
+                interactor?.replayVideo()
+            } else {
+                interactor?.playVideo()
+            }
         }
         isPlaying.toggle()
         view?.updatePlayPauseButton(isPlaying: isPlaying)
@@ -99,5 +104,35 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     
     @objc private func hideControls() {
         view?.hideControls()
+    }
+    
+    func videoDidFinishPlaying() {
+        AnalyticsManager().logVideoWatchedEnd(videoTitle: video.title)
+        isPlaying.toggle()
+        view?.updatePlayPauseButtonToReplay()
+        view?.showControls()
+    }
+    
+    func didChangeSpeed(selectedIndex: Int) {
+        let rate: Float = getRate(from: selectedIndex)
+
+        interactor?.setPlayRate(rate: rate)
+        view?.updateTitleChangeSpeedButton(title: String(rate) + "x")
+        AnalyticsManager().logPlaySpeedChanged(speed: rate)
+        view?.showControls()
+    }
+    
+    private func getRate(from index: Int) -> Float {
+        switch index {
+        case 0: return 0.5
+        case 1: return 1.0
+        case 2: return 1.5
+        case 3: return 2.0
+        default: return 1.0
+        }
+    }
+    
+    func checkSpeedControlFeature(isEnabled: Bool) {
+        view?.checkSpeedControlFeature(isEnabled: isEnabled)
     }
 }

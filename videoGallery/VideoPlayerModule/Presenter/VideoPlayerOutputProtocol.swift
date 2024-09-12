@@ -20,5 +20,8 @@ protocol VideoPlayerOutputProtocol: AnyObject {
     func didClose()
     func updateTime(currentTime: Float, totalTime: Float)
     func getFormattedDuration() -> String
-    func startHideControlsTimer() 
+    func startHideControlsTimer()
+    func videoDidFinishPlaying()
+    func didChangeSpeed(selectedIndex: Int)
+    func checkSpeedControlFeature(isEnabled: Bool)
 }

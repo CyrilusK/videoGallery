@@ -7,6 +7,7 @@
 
 import UIKit
 import AVKit
+import Firebase
 
 final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol{
     weak var output: VideoPlayerOutputProtocol?
@@ -19,11 +20,16 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol{
             player?.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
+        
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
     }
     
     func loadVideo(url: String) {
         guard let videoURL = URL(string: url) else { return }
         player = AVPlayer(url: videoURL)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
+        
         setupPeriodicTimeObserver()
         playVideo()
     }
@@ -79,5 +85,39 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol{
     func getDuration() -> Float64 {
         guard let duration = player?.currentItem?.duration else { return 0.0 }
         return CMTimeGetSeconds(duration)
+    }
+    
+    @objc private func videoDidFinishPlaying() {
+        output?.videoDidFinishPlaying()
+    }
+    
+    func replayVideo() {
+        player?.seek(to: .zero)
+        playVideo()
+    }
+    
+    func setPlayRate(rate: Float) {
+        player?.rate = rate
+    }
+    
+    func setupRemoteConfig() {
+        RemoteConfig.remoteConfig().setDefaults([K.isSpeedControlEnabled: false as NSObject])
+        fetchRemoteConfig()
+    }
+    
+    private func fetchRemoteConfig() {
+        RemoteConfig.remoteConfig().fetch(withExpirationDuration: 0) { [unowned self] (status, error) in
+            guard error == nil else {
+                print("[DEBUG] - Error fetching remote config: \(String(describing: error)))")
+                return
+            }
+            RemoteConfig.remoteConfig().activate()
+            self.checkSpeedControlFeature()
+        }
+    }
+    
+    private func checkSpeedControlFeature() {
+        let isSpeedControlEnabled = RemoteConfig.remoteConfig()[K.isSpeedControlEnabled].boolValue
+        self.output?.checkSpeedControlFeature(isEnabled: isSpeedControlEnabled)
     }
 }
