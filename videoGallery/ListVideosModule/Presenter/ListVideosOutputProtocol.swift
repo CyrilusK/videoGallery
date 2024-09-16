@@ -9,6 +9,7 @@ import UIKit
 
 protocol ListVideosOutputProtocol: AnyObject {
     var videos: [Video] { get }
+    var config: VideoPlayerUIConfig? { get }
     
     func viewDidLoad()
     func didFetchVideos(_ videos: [Video])
@@ -16,4 +17,5 @@ protocol ListVideosOutputProtocol: AnyObject {
     func getVideo(at indexPath: IndexPath) -> Video
     func didSelectVideo(at indexPath: IndexPath)
     func getThumbnail(at indexPath: IndexPath) -> UIImage?
+    func getRemoteConfig(_ config: VideoPlayerUIConfig)
 }

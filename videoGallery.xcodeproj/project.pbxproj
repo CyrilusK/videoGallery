@@ -16,6 +16,8 @@
 		A541F5C22C91ADD100F60506 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = A541F5C12C91ADD100F60506 /* FirebaseRemoteConfig */; };
 		A541F5C42C91ADD100F60506 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A541F5C32C91ADD100F60506 /* FirebaseRemoteConfigSwift */; };
 		A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */; };
+		A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C72C94855700F60506 /* RemoteConfigManager.swift */; };
+		A541F5CA2C98871000F60506 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C92C98871000F60506 /* Extensions.swift */; };
 		A5BCE3C62C85CEC6004BE4A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */; };
 		A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C72C85CEC6004BE4A8 /* SceneDelegate.swift */; };
 		A5BCE3CA2C85CEC6004BE4A8 /* ListVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C92C85CEC6004BE4A8 /* ListVideosViewController.swift */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		A541F5B32C91A91F00F60506 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		A541F5C72C94855700F60506 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
+		A541F5C92C98871000F60506 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A5BCE3C22C85CEC6004BE4A8 /* videoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = videoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5BCE3C72C85CEC6004BE4A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				A5BCE3D32C85CECA004BE4A8 /* Info.plist */,
 				A541F5B32C91A91F00F60506 /* GoogleService-Info.plist */,
 				A5BCE3F52C86096B004BE4A8 /* Constants.swift */,
+				A541F5C92C98871000F60506 /* Extensions.swift */,
 			);
 			path = videoGallery;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 				A5BCE3F72C860A35004BE4A8 /* VideoApiManager.swift */,
 				A5BCE3FF2C87442B004BE4A8 /* VideoThumbnailManager.swift */,
 				A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */,
+				A541F5C72C94855700F60506 /* RemoteConfigManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -362,6 +368,7 @@
 				A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */,
 				A5BCE40F2C886FB3004BE4A8 /* VideoPlayerConfigurator.swift in Sources */,
 				A5BCE3FA2C870C45004BE4A8 /* VideoCell.swift in Sources */,
+				A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */,
 				A5BCE4002C87442B004BE4A8 /* VideoThumbnailManager.swift in Sources */,
 				A5BCE3FC2C8713E5004BE4A8 /* ListVideosDataSource.swift in Sources */,
 				A5BCE4172C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift in Sources */,
@@ -375,6 +382,7 @@
 				A5BCE3C62C85CEC6004BE4A8 /* AppDelegate.swift in Sources */,
 				A5BCE3F02C86005B004BE4A8 /* ListVideosInteractorInputProtocol.swift in Sources */,
 				A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */,
+				A541F5CA2C98871000F60506 /* Extensions.swift in Sources */,
 				A5BCE3E52C85FD3E004BE4A8 /* ListVideosPresenter.swift in Sources */,
 				A5BCE4152C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift in Sources */,
 				A5BCE40B2C886F5F004BE4A8 /* VideoPlayerPresenter.swift in Sources */,

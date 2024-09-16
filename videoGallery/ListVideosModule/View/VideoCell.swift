@@ -12,7 +12,7 @@ final class VideoCell: UICollectionViewCell {
     
     private let videoView: UIImageView = {
         let videoView = UIImageView()
-        videoView.contentMode = .scaleAspectFit
+        videoView.contentMode = .scaleToFill
         videoView.translatesAutoresizingMaskIntoConstraints = false
         return videoView
     }()
@@ -70,7 +70,7 @@ final class VideoCell: UICollectionViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: videoView.leadingAnchor, constant: 5),
             titleLabel.trailingAnchor.constraint(equalTo: videoView.trailingAnchor),
             
-            durationLabel.trailingAnchor.constraint(equalTo: videoView.trailingAnchor, constant: -10),
+            durationLabel.trailingAnchor.constraint(equalTo: videoView.trailingAnchor, constant: -5),
             durationLabel.bottomAnchor.constraint(equalTo: videoView.bottomAnchor, constant: -5),
             
             authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),

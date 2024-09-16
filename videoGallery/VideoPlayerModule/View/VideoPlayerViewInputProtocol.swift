@@ -19,5 +19,6 @@ protocol VideoPlayerViewInputProtocol: AnyObject {
     func showControls()
     func updatePlayPauseButtonToReplay()
     func updateTitleChangeSpeedButton(title: String)
-    func checkSpeedControlFeature(isEnabled: Bool)
+    func setConfigUI(config: VideoPlayerUIConfig)
+    func getPlaybackSpeeds() -> [Float] 
 }

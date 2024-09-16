@@ -23,4 +23,12 @@ final class ListVideosInteractor: ListVideosInteractorInputProtocol {
     func getThumbnails(for videos: [Video]) async -> [UIImage?] {
         await VideoThumbnailManager().generateThumbnails(for: videos)
     }
+    
+    func fetchRemoteConfig() async {
+        guard let config = await RemoteConfigManager().fetchRemoteConfig() else {
+            print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
+            return
+        }
+        output?.getRemoteConfig(config)
+    }
 }

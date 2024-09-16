@@ -24,9 +24,15 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     }
     
     func viewDidLoad() {
-        view?.setupUI()
-        startHideControlsTimer()
-        interactor?.setupRemoteConfig()
+        interactor?.fetchRemoteConfig()
+    }
+    
+    func getRemoteConfig(_ config: VideoPlayerUIConfig) {
+        self.view?.setConfigUI(config: config)
+        DispatchQueue.main.async {
+            self.view?.setupUI()
+        }
+        self.startHideControlsTimer()
     }
     
     func viewDidAppear() {
@@ -114,25 +120,21 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     }
     
     func didChangeSpeed(selectedIndex: Int) {
-        let rate: Float = getRate(from: selectedIndex)
-
+        guard let speeds = view?.getPlaybackSpeeds(), selectedIndex < speeds.count else {
+            return
+        }
+        let rate = speeds[selectedIndex]
+        
         interactor?.setPlayRate(rate: rate)
-        view?.updateTitleChangeSpeedButton(title: String(rate) + "x")
+        view?.updateTitleChangeSpeedButton(title: "\(rate)x")
         AnalyticsManager().logPlaySpeedChanged(speed: rate)
         view?.showControls()
     }
-    
-    private func getRate(from index: Int) -> Float {
-        switch index {
-        case 0: return 0.5
-        case 1: return 1.0
-        case 2: return 1.5
-        case 3: return 2.0
-        default: return 1.0
+
+    private func getRate(from index: Int, speeds: [Float]) -> Float {
+        guard index < speeds.count else {
+            return 1.0
         }
-    }
-    
-    func checkSpeedControlFeature(isEnabled: Bool) {
-        view?.checkSpeedControlFeature(isEnabled: isEnabled)
+        return speeds[index]
     }
 }

@@ -23,5 +23,5 @@ protocol VideoPlayerOutputProtocol: AnyObject {
     func startHideControlsTimer()
     func videoDidFinishPlaying()
     func didChangeSpeed(selectedIndex: Int)
-    func checkSpeedControlFeature(isEnabled: Bool)
+    func getRemoteConfig(_ config: VideoPlayerUIConfig)
 }

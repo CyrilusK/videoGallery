@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 import Firebase
 
-final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol{
+final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
     weak var output: VideoPlayerOutputProtocol?
     
     private var player: AVPlayer?
@@ -100,24 +100,13 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol{
         player?.rate = rate
     }
     
-    func setupRemoteConfig() {
-        RemoteConfig.remoteConfig().setDefaults([K.isSpeedControlEnabled: false as NSObject])
-        fetchRemoteConfig()
-    }
-    
-    private func fetchRemoteConfig() {
-        RemoteConfig.remoteConfig().fetch(withExpirationDuration: 0) { [unowned self] (status, error) in
-            guard error == nil else {
-                print("[DEBUG] - Error fetching remote config: \(String(describing: error)))")
+    func fetchRemoteConfig() {
+        Task {
+            guard let config = await RemoteConfigManager().fetchRemoteConfig() else {
+                print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
                 return
             }
-            RemoteConfig.remoteConfig().activate()
-            self.checkSpeedControlFeature()
+            output?.getRemoteConfig(config)
         }
-    }
-    
-    private func checkSpeedControlFeature() {
-        let isSpeedControlEnabled = RemoteConfig.remoteConfig()[K.isSpeedControlEnabled].boolValue
-        self.output?.checkSpeedControlFeature(isEnabled: isSpeedControlEnabled)
     }
 }

@@ -9,5 +9,6 @@ import UIKit
 
 protocol ListVideosInteractorInputProtocol: AnyObject {
     func fetchVideos() async
+    func fetchRemoteConfig() async
     func getThumbnails(for videos: [Video]) async -> [UIImage?]
 }
