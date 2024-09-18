@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 final class ListVideosInteractor: ListVideosInteractorInputProtocol {
     weak var output: ListVideosOutputProtocol?
@@ -17,6 +18,7 @@ final class ListVideosInteractor: ListVideosInteractorInputProtocol {
         }
         catch {
             output?.showError(error)
+            Crashlytics.crashlytics().record(error: error)
         }
     }
     

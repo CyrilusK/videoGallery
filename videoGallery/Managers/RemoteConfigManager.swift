@@ -45,6 +45,7 @@ final class RemoteConfigManager {
             return config
         } catch {
             print("[DEBUG] – Ошибка декодирования JSON: \(error)")
+            Crashlytics.crashlytics().record(error: error)
             return nil
         }
     }

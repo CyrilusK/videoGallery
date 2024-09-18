@@ -44,11 +44,11 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         
         guard let windowInterface = self.view.window?.windowScene?.interfaceOrientation else { return }
         if windowInterface.isPortrait {
-            videoPlayerHeightConstraint.constant = CGFloat(config?.videoConstraintHeight ?? Float(view.frame.width) / 3)
+            videoPlayerHeightConstraint.constant = CGFloat(config?.videoConstraintHeight ?? Float(view.frame.width / 3))
             fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
         }
         else {
-            videoPlayerHeightConstraint.constant = viewVideoPlayer.frame.width
+            videoPlayerHeightConstraint.constant = view.frame.width
             fullScreenButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left"), for: .normal)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -62,6 +62,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     
     /// Установка UI элементов
     func setupUI() {
+        print(#function)
         view.backgroundColor = UIColor.fromNamedColor(config?.backgroundColor ?? "white")
         setupViewVideoPlayer()
         setupCenterControlsStackView()
@@ -97,7 +98,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(viewVideoPlayer)
         
-        videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height) / 3))
+        videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)))
         
         NSLayoutConstraint.activate([
             viewVideoPlayer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -125,7 +126,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             centerControlsStackView.centerXAnchor.constraint(equalTo: viewVideoPlayer.centerXAnchor),
             centerControlsStackView.centerYAnchor.constraint(equalTo: viewVideoPlayer.centerYAnchor),
-            playPauseButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            playPauseButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
     }
     
@@ -136,8 +137,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         playPauseButton.addTarget(self, action: #selector(didTapPlayPause), for: .touchUpInside)
         playPauseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            playPauseButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            playPauseButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            playPauseButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            playPauseButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
     }
     
@@ -153,10 +154,10 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         skipForwardButton.translatesAutoresizingMaskIntoConstraints = false
         skipBackwardButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            skipForwardButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            skipForwardButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            skipBackwardButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            skipBackwardButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            skipForwardButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            skipForwardButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            skipBackwardButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            skipBackwardButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
     }
     
@@ -172,8 +173,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             muteButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
             muteButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -10),
-            muteButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            muteButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            muteButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            muteButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
     }
     
@@ -229,8 +230,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
             closeButton.trailingAnchor.constraint(equalTo: viewVideoPlayer.trailingAnchor, constant: -10),
-            closeButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            closeButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            closeButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            closeButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
     }
     
@@ -246,8 +247,8 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             fullScreenButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
             fullScreenButton.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 10),
-            fullScreenButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            fullScreenButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            fullScreenButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            fullScreenButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
     }
     
@@ -283,15 +284,15 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         NSLayoutConstraint.activate([
             changeSpeedButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
             changeSpeedButton.leadingAnchor.constraint(equalTo: fullScreenButton.trailingAnchor, constant: 10),
-            changeSpeedButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30)),
-            changeSpeedButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 30))
+            changeSpeedButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
+            changeSpeedButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
         ])
         
         let count = Float(config?.playbackSpeeds.count ?? 4)
         NSLayoutConstraint.activate([
             speedSegmentedControl.topAnchor.constraint(equalTo: changeSpeedButton.bottomAnchor, constant: 10),
             speedSegmentedControl.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 10),
-            speedSegmentedControl.widthAnchor.constraint(equalToConstant: CGFloat(count * (config?.buttonSize ?? 30))),
+            speedSegmentedControl.widthAnchor.constraint(equalToConstant: CGFloat(count * (config?.buttonSize ?? 35))),
             speedSegmentedControl.heightAnchor.constraint(equalTo: changeSpeedButton.widthAnchor)
         ])
     }

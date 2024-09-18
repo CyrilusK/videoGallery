@@ -104,6 +104,7 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
         Task {
             guard let config = await RemoteConfigManager().fetchRemoteConfig() else {
                 print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
+                output?.getRemoteConfig(nil)
                 return
             }
             output?.getRemoteConfig(config)

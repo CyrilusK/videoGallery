@@ -27,12 +27,14 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         interactor?.fetchRemoteConfig()
     }
     
-    func getRemoteConfig(_ config: VideoPlayerUIConfig) {
-        self.view?.setConfigUI(config: config)
+    func getRemoteConfig(_ config: VideoPlayerUIConfig?) {
         DispatchQueue.main.async {
+            if let config = config {
+                self.view?.setConfigUI(config: config)
+            }
             self.view?.setupUI()
+            self.startHideControlsTimer()
         }
-        self.startHideControlsTimer()
     }
     
     func viewDidAppear() {
