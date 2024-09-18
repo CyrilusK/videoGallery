@@ -24,8 +24,17 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     }
     
     func viewDidLoad() {
-        view?.setupUI()
-        startHideControlsTimer()
+        interactor?.fetchRemoteConfig()
+    }
+    
+    func getRemoteConfig(_ config: VideoPlayerUIConfig?) {
+        DispatchQueue.main.async {
+            if let config = config {
+                self.view?.setConfigUI(config: config)
+            }
+            self.view?.setupUI()
+            self.startHideControlsTimer()
+        }
     }
     
     func viewDidAppear() {
@@ -38,7 +47,11 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
             interactor?.pauseVideo()
         }
         else {
-            interactor?.playVideo()
+            if let player = interactor?.getValuesPlayer(), player.currentTime() == player.currentItem?.duration {
+                interactor?.replayVideo()
+            } else {
+                interactor?.playVideo()
+            }
         }
         isPlaying.toggle()
         view?.updatePlayPauseButton(isPlaying: isPlaying)
@@ -99,5 +112,31 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     
     @objc private func hideControls() {
         view?.hideControls()
+    }
+    
+    func videoDidFinishPlaying() {
+        AnalyticsManager().logVideoWatchedEnd(videoTitle: video.title)
+        isPlaying.toggle()
+        view?.updatePlayPauseButtonToReplay()
+        view?.showControls()
+    }
+    
+    func didChangeSpeed(selectedIndex: Int) {
+        guard let speeds = view?.getPlaybackSpeeds(), selectedIndex < speeds.count else {
+            return
+        }
+        let rate = speeds[selectedIndex]
+        
+        interactor?.setPlayRate(rate: rate)
+        view?.updateTitleChangeSpeedButton(title: "\(rate)x")
+        AnalyticsManager().logPlaySpeedChanged(speed: rate)
+        view?.showControls()
+    }
+
+    private func getRate(from index: Int, speeds: [Float]) -> Float {
+        guard index < speeds.count else {
+            return 1.0
+        }
+        return speeds[index]
     }
 }

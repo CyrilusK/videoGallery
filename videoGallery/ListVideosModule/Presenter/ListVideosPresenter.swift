@@ -14,6 +14,7 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
     
     var videos = [Video]()
     var thumbnails = [UIImage?]()
+    var config: VideoPlayerUIConfig?
     
     var dataSource: UICollectionViewDataSource?
     var delegate: UICollectionViewDelegate?
@@ -25,6 +26,7 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
     
     func viewDidLoad() {
         Task(priority: .userInitiated) {
+            await interactor?.fetchRemoteConfig()
             await interactor?.fetchVideos()
             guard let arrayThumbnails = await self.interactor?.getThumbnails(for: self.videos) else {
                 return
@@ -66,6 +68,10 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
     func didSelectVideo(at indexPath: IndexPath) {
         let video = getVideo(at: indexPath)
         router?.presentVideoDetail(video)
+    }
+    
+    func getRemoteConfig(_ config: VideoPlayerUIConfig) {
+        self.config = config
     }
 }
 

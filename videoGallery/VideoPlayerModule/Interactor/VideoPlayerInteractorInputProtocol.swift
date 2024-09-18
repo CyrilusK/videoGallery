@@ -17,4 +17,7 @@ protocol VideoPlayerInteractorInputProtocol {
     func setMute(isMuted: Bool)
     func skip(forward: Bool)
     func getDuration() -> Float64
+    func replayVideo()
+    func setPlayRate(rate: Float)
+    func fetchRemoteConfig()
 }

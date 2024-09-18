@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Firebase
 
 //    private func generateThumbnail(url: URL, completion: @escaping (UIImage?) -> Void) {
 //        DispatchQueue.global().async {
@@ -38,7 +39,8 @@ final class VideoThumbnailManager {
             let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
             return UIImage(cgImage: cgImage)
         } catch {
-            print("Error generating thumbnail: \(error.localizedDescription)")
+            print("[DEBUG] - Error generating thumbnail: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
             return nil
         }
     }

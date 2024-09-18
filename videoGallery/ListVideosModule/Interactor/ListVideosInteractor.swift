@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 final class ListVideosInteractor: ListVideosInteractorInputProtocol {
     weak var output: ListVideosOutputProtocol?
@@ -17,10 +18,19 @@ final class ListVideosInteractor: ListVideosInteractorInputProtocol {
         }
         catch {
             output?.showError(error)
+            Crashlytics.crashlytics().record(error: error)
         }
     }
     
     func getThumbnails(for videos: [Video]) async -> [UIImage?] {
         await VideoThumbnailManager().generateThumbnails(for: videos)
+    }
+    
+    func fetchRemoteConfig() async {
+        guard let config = await RemoteConfigManager().fetchRemoteConfig() else {
+            print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
+            return
+        }
+        output?.getRemoteConfig(config)
     }
 }

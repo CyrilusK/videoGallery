@@ -19,7 +19,7 @@ final class ListVideosDelegate: NSObject, UICollectionViewDelegate, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size = (collectionView.frame.width / 2) - 10
-        return CGSize(width: size, height: size - 50)
+        let size = (collectionView.frame.width / CGFloat(presenter.config?.cellCount ?? 2)) - 10
+        return CGSize(width: size, height: size)
     }
 }
