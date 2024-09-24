@@ -25,7 +25,7 @@ protocol VideoPlayerViewInputProtocol: AnyObject {
     func setConfigUI(config: VideoPlayerUIConfig)
     func getPlaybackSpeeds() -> [Float]
     func animateContainerHeight(_ height: CGFloat)
-    func setVideoPlayerHeightConstraint(_ newHeight: CGFloat)
+    func setContainerHeightConstraint(_ newHeight: CGFloat)
     func animateDismissView()
     func animateShowDimmedView()
     func animateShowVideoPlayerView()

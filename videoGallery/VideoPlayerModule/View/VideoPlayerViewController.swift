@@ -17,10 +17,12 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)) }()
     
     private var playerLayer: AVPlayerLayer?
-    private var videoPlayerHeightConstraint: NSLayoutConstraint!
-    private var videoPlayerBottomConstraint: NSLayoutConstraint!
+    private var containerHeightConstraint: NSLayoutConstraint!
+    private var containerBottomConstraint: NSLayoutConstraint!
+    private var videoViewHeightConstraint: NSLayoutConstraint!
     private var config: VideoPlayerUIConfig?
     
+    private let containerView = UIView()
     private let viewVideoPlayer = UIView()
     private let dimmedView = UIView()
     private let centerControlsStackView = UIStackView()
@@ -52,11 +54,13 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         
         guard let windowInterface = self.view.window?.windowScene?.interfaceOrientation else { return }
         if windowInterface.isPortrait {
-            videoPlayerHeightConstraint.constant = defaultHeight
+            containerHeightConstraint.constant = defaultHeight
+            videoViewHeightConstraint.constant = defaultHeight
             fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
         }
         else {
-            videoPlayerHeightConstraint.constant = view.frame.width
+            containerHeightConstraint.constant = view.frame.width
+            videoViewHeightConstraint.constant = view.frame.width - view.safeAreaInsets.bottom
             fullScreenButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left"), for: .normal)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -103,28 +107,37 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     }
     
     private func setupViewVideoPlayer() {
+        containerView.backgroundColor = .systemGroupedBackground
         dimmedView.backgroundColor = .black
         viewVideoPlayer.backgroundColor = .black
         
+        view.addSubview(containerView)
         view.addSubview(dimmedView)
-        view.addSubview(viewVideoPlayer)
+        containerView.addSubview(viewVideoPlayer)
         
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
         
-        videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: defaultHeight)
-        videoPlayerBottomConstraint = viewVideoPlayer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: defaultHeight + view.safeAreaInsets.bottom)
+        containerHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
+        containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: defaultHeight + view.safeAreaInsets.bottom)
+        videoViewHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: defaultHeight)
         
         NSLayoutConstraint.activate([
             dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
-            dimmedView.bottomAnchor.constraint(equalTo: viewVideoPlayer.topAnchor),
+            dimmedView.bottomAnchor.constraint(equalTo: containerView.topAnchor),
             dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            containerHeightConstraint,
+            containerBottomConstraint,
+            
+            viewVideoPlayer.topAnchor.constraint(equalTo: containerView.topAnchor),
             viewVideoPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             viewVideoPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            videoPlayerHeightConstraint,
-            videoPlayerBottomConstraint
+            videoViewHeightConstraint
         ])
         
         let tapGestureForDimmedView = UITapGestureRecognizer(target: self, action: #selector(animateDismissView))
@@ -140,7 +153,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didDragScreen(gesture:)))
         panGesture.delaysTouchesBegan = false
         panGesture.delaysTouchesEnded = false
-        viewVideoPlayer.addGestureRecognizer(panGesture)
+        containerView.addGestureRecognizer(panGesture)
     }
     
     private func setupCenterControlsStackView() {
@@ -390,7 +403,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     
     func animateContainerHeight(_ height: CGFloat) {
         UIView.animate(withDuration: K.timeAnimate) {
-            self.setVideoPlayerHeightConstraint(height)
+            self.setContainerHeightConstraint(height)
         }
         currentContainerHeight = height
     }
@@ -404,17 +417,17 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     
     func animateShowVideoPlayerView() {
         UIView.animate(withDuration: K.timeAnimate) {
-            self.setVideoPlayerBottomConstraint(0)
+            self.setContainerBottomConstraint(0)
         }
     }
     
-    func setVideoPlayerHeightConstraint(_ newHeight: CGFloat) {
-        videoPlayerHeightConstraint.constant = newHeight
+    func setContainerHeightConstraint(_ newHeight: CGFloat) {
+        containerHeightConstraint.constant = newHeight
         view.layoutIfNeeded()
     }
     
-    private func setVideoPlayerBottomConstraint(_ newBottom: CGFloat) {
-        self.videoPlayerBottomConstraint.constant = newBottom
+    private func setContainerBottomConstraint(_ newBottom: CGFloat) {
+        self.containerBottomConstraint.constant = newBottom
         self.view.layoutIfNeeded()
     }
     
@@ -439,17 +452,25 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         output?.didSeekToPosition(sliderValue: timeSlider.value)
     }
     
-    @available(iOS 16.0, *)
     @objc private func didTapFullScreen() {
-        guard let windowScene = view.window?.windowScene else { return }
-        
-        if windowScene.interfaceOrientation == .portrait {
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
-            AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
-        }
-        else {
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-            AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+        if #available(iOS 16.0, *) {
+            guard let windowScene = view.window?.windowScene else { return }
+            
+            if windowScene.interfaceOrientation == .portrait {
+                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
+            } else {
+                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+            }
+        } else {
+            if UIDevice.current.orientation == .portrait {
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
+            } else {
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+            }
         }
         showControls()
     }
@@ -483,7 +504,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             self.output?.didClose()
         }
         UIView.animate(withDuration: K.timeAnimate) {
-            self.setVideoPlayerBottomConstraint(self.defaultHeight)
+            self.setContainerBottomConstraint(self.defaultHeight)
         }
     }
 }

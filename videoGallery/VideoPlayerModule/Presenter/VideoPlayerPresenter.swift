@@ -153,7 +153,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         switch gesture.state {
         case .changed:
             if newHeight < maxHeight {
-                view?.setVideoPlayerHeightConstraint(newHeight)
+                view?.setContainerHeightConstraint(newHeight)
             }
         case .ended:
             if newHeight < K.dismissibleHeight {
