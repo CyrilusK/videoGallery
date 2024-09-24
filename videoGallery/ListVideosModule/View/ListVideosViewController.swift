@@ -44,13 +44,14 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
     }
     
     private func setupCollectionView() {
+        videosCollectionView.backgroundColor = .systemGroupedBackground
         view.addSubview(videosCollectionView)
         videosCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            videosCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            videosCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            videosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            videosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            videosCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            videosCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            videosCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            videosCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
         videosCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: K.reuseIdentifier)
     }

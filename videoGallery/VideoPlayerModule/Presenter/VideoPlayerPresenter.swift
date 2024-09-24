@@ -40,6 +40,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     func viewDidAppear() {
         interactor?.loadVideo(url: video.videoUrl)
         view?.setupVideoPlayerLayer(player: interactor?.getValuesPlayer())
+        view?.animateShowDimmedView()
     }
     
     func didTapPlayPause() {
@@ -83,6 +84,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     
     func didClose() {
         router?.dismiss()
+        
     }
     
     func updateTime(currentTime: Float, totalTime: Float) {
@@ -138,5 +140,33 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
             return 1.0
         }
         return speeds[index]
+    }
+    
+    func handleHeight(_ gesture: UIPanGestureRecognizer, _ maxHeight: CGFloat, _ translation: CGPoint) {
+        guard let currentHeight = view?.currentContainerHeight, let defaultHeight = view?.defaultHeight else { return }
+        let isDraggingDown = translation.y > 0 // true == going down and false == going up
+        let newHeight = currentHeight - translation.y
+        
+        switch gesture.state {
+        case .changed:
+            if newHeight < maxHeight {
+                view?.setVideoPlayerHeightConstraint(newHeight)
+            }
+        case .ended:
+            if newHeight < K.dismissibleHeight {
+                view?.animateDismissView()
+            }
+            else if newHeight < defaultHeight {
+                view?.animateContainerHeight(defaultHeight)
+            }
+            else if newHeight < maxHeight && isDraggingDown {
+                view?.animateContainerHeight(defaultHeight)
+            }
+            else if newHeight > defaultHeight && !isDraggingDown {
+                view?.animateContainerHeight(maxHeight)
+            }
+        default:
+            break
+        }
     }
 }

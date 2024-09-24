@@ -12,8 +12,20 @@ final class ListVideosRouter: ListVideosRouterInputProtocol {
     
     func presentVideoDetail(_ video: Video) {
         let videoPlayerVC = VideoPlayerConfigurator().configure(video: video)
-        videoPlayerVC.modalPresentationStyle = .fullScreen
-        videoPlayerVC.modalTransitionStyle = .coverVertical
-        entry?.present(videoPlayerVC, animated: true)
+//        if #available(iOS 16, *) {
+//            videoPlayerVC.isModalInPresentation = true
+//            if let sheet = videoPlayerVC.sheetPresentationController {
+//                sheet.detents = [.custom(resolver: { context in
+//                    0.35 * context.maximumDetentValue
+//                }), .custom(resolver: { context in
+//                    0.7 * context.maximumDetentValue
+//                }), .large()]
+//            }
+//        } else {
+//            videoPlayerVC.modalPresentationStyle = .overFullScreen
+//            videoPlayerVC.modalTransitionStyle = .coverVertical
+//        }
+        videoPlayerVC.modalPresentationStyle = .overFullScreen
+        entry?.present(videoPlayerVC, animated: false)
     }
 }

@@ -21,6 +21,8 @@ struct K {
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
     static let alphaComponent: Double = 0.2
+    static let dismissibleHeight: CGFloat = 200
+    static let timeAnimate : Double = 0.5
     
     // analytics
     static let videoWatchedEnd = "video_watched_to_end"

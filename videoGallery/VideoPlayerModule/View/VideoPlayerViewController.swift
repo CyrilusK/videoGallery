@@ -10,11 +10,19 @@ import AVKit
 
 final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputProtocol {
     var output: VideoPlayerOutputProtocol?
+    
+    lazy var currentContainerHeight: CGFloat = {
+        CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)) }()
+    lazy var defaultHeight: CGFloat = {
+        CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)) }()
+    
     private var playerLayer: AVPlayerLayer?
     private var videoPlayerHeightConstraint: NSLayoutConstraint!
+    private var videoPlayerBottomConstraint: NSLayoutConstraint!
     private var config: VideoPlayerUIConfig?
     
     private let viewVideoPlayer = UIView()
+    private let dimmedView = UIView()
     private let centerControlsStackView = UIStackView()
     private let playPauseButton = UIButton(type: .system)
     private let muteButton = UIButton(type: .system)
@@ -37,6 +45,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         output?.viewDidAppear()
+        
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -44,7 +53,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         
         guard let windowInterface = self.view.window?.windowScene?.interfaceOrientation else { return }
         if windowInterface.isPortrait {
-            videoPlayerHeightConstraint.constant = CGFloat(config?.videoConstraintHeight ?? Float(view.frame.width / 3))
+            videoPlayerHeightConstraint.constant = defaultHeight
             fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
         }
         else {
@@ -56,14 +65,13 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         })
     }
     
+    /// Установка UI элементов
     func setConfigUI(config: VideoPlayerUIConfig) {
         self.config = config
     }
     
-    /// Установка UI элементов
     func setupUI() {
-        print(#function)
-        view.backgroundColor = UIColor.fromNamedColor(config?.backgroundColor ?? "white")
+        view.backgroundColor = .clear
         setupViewVideoPlayer()
         setupCenterControlsStackView()
         setupTimeLabels()
@@ -80,7 +88,9 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         guard let playerLayer = playerLayer else {
             return
         }
-        playerLayer.frame = viewVideoPlayer.bounds
+        DispatchQueue.main.asyncAfter(deadline: .now() + K.timeAnimate, execute: {
+            playerLayer.frame = self.viewVideoPlayer.bounds
+        })
         viewVideoPlayer.layer.addSublayer(playerLayer)
         viewVideoPlayer.layer.addSublayer(centerControlsStackView.layer)
         viewVideoPlayer.layer.addSublayer(currentTimeLabel.layer)
@@ -94,21 +104,44 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     }
     
     private func setupViewVideoPlayer() {
+        dimmedView.backgroundColor = .black
         viewVideoPlayer.backgroundColor = .black
-        viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(dimmedView)
         view.addSubview(viewVideoPlayer)
         
-        videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)))
+        dimmedView.translatesAutoresizingMaskIntoConstraints = false
+        viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
+        
+        videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: defaultHeight)
+        videoPlayerBottomConstraint = viewVideoPlayer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         
         NSLayoutConstraint.activate([
-            viewVideoPlayer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmedView.bottomAnchor.constraint(equalTo: viewVideoPlayer.topAnchor),
+            dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
             viewVideoPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             viewVideoPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            videoPlayerHeightConstraint
+            videoPlayerHeightConstraint,
+            videoPlayerBottomConstraint
         ])
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
-        viewVideoPlayer.addGestureRecognizer(tapGestureRecognizer)
+        let tapGestureForDimmedView = UITapGestureRecognizer(target: self, action: #selector(animateDismissView))
+        dimmedView.addGestureRecognizer(tapGestureForDimmedView)
+        
+        let tapGestureForVideoView = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
+        viewVideoPlayer.addGestureRecognizer(tapGestureForVideoView)
+        
+        setupPanGesture()
+    }
+    
+    func setupPanGesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didDragScreen(gesture:)))
+        panGesture.delaysTouchesBegan = false
+        panGesture.delaysTouchesEnded = false
+        viewVideoPlayer.addGestureRecognizer(panGesture)
     }
     
     private func setupCenterControlsStackView() {
@@ -222,7 +255,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
         closeButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
         closeButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        closeButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(animateDismissView), for: .touchUpInside)
         closeButton.isHidden = !(config?.uiElementsVisibility["closeButton"] ?? true)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         viewVideoPlayer.addSubview(closeButton)
@@ -271,7 +304,6 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         speedSegmentedControl.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
         speedSegmentedControl.selectedSegmentTintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
         if let defaultIndex = config?.playbackSpeeds.firstIndex(of: 1.0) {
-            print(defaultIndex)
             speedSegmentedControl.selectedSegmentIndex = defaultIndex
         }
         speedSegmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
@@ -317,7 +349,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     }
     
     func hideControls() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: K.timeAnimate) {
             self.centerControlsStackView.alpha = 0
             self.muteButton.alpha = 0
             self.closeButton.alpha = 0
@@ -331,7 +363,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     }
     
     func showControls() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: K.timeAnimate) {
             self.centerControlsStackView.alpha = 1
             self.muteButton.alpha = 1
             self.closeButton.alpha = 1
@@ -357,6 +389,25 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         return config?.playbackSpeeds ?? [0.5, 1, 1.5, 2]
     }
     
+    func animateContainerHeight(_ height: CGFloat) {
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.setVideoPlayerHeightConstraint(height)
+        }
+        currentContainerHeight = height
+    }
+    
+    func animateShowDimmedView() {
+        dimmedView.alpha = 0
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.dimmedView.alpha = K.timeAnimate
+        }
+    }
+    
+    func setVideoPlayerHeightConstraint(_ newHeight: CGFloat) {
+        videoPlayerHeightConstraint.constant = newHeight
+        view.layoutIfNeeded()
+    }
+    
     ///Обработчики нажатий
     @objc private func didTapPlayPause() {
         output?.didTapPlayPause()
@@ -378,10 +429,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         output?.didSeekToPosition(sliderValue: timeSlider.value)
     }
     
-    @objc private func didTapClose() {
-        output?.didClose()
-    }
-    
+    @available(iOS 16.0, *)
     @objc private func didTapFullScreen() {
         guard let windowScene = view.window?.windowScene else { return }
         
@@ -396,10 +444,6 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         showControls()
     }
     
-    @objc private func didTapScreen() {
-        showControls()
-    }
-    
     @objc private func didTapChangeSpeedButton() {
         speedSegmentedControl.isHidden.toggle()
         showControls()
@@ -409,5 +453,28 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         let selectedIndex = speedSegmentedControl.selectedSegmentIndex
         output?.didChangeSpeed(selectedIndex: selectedIndex)
         speedSegmentedControl.isHidden.toggle()
+    }
+    
+    @objc private func didTapScreen() {
+        showControls()
+    }
+    
+    @objc private func didDragScreen(gesture: UIPanGestureRecognizer) {
+        let maxHeight = view.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom
+        let translation = gesture.translation(in: view)
+        output?.handleHeight(gesture, maxHeight, translation)
+    }
+    
+    @objc func animateDismissView() {
+        dimmedView.alpha = K.timeAnimate
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.dimmedView.alpha = 0
+        } completion: { _ in
+            self.output?.didClose()
+        }
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.videoPlayerBottomConstraint?.constant = self.defaultHeight
+            self.view.layoutIfNeeded()
+        }
     }
 }
