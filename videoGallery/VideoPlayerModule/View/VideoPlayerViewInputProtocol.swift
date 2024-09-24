@@ -28,4 +28,5 @@ protocol VideoPlayerViewInputProtocol: AnyObject {
     func setVideoPlayerHeightConstraint(_ newHeight: CGFloat)
     func animateDismissView()
     func animateShowDimmedView()
+    func animateShowVideoPlayerView()
 }

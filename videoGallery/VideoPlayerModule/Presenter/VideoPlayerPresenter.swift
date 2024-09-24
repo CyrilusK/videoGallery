@@ -41,6 +41,9 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         interactor?.loadVideo(url: video.videoUrl)
         view?.setupVideoPlayerLayer(player: interactor?.getValuesPlayer())
         view?.animateShowDimmedView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + K.timeAnimate, execute: {
+            self.view?.animateShowVideoPlayerView()
+        })
     }
     
     func didTapPlayPause() {
@@ -83,8 +86,8 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     }
     
     func didClose() {
+        interactor?.stopVideo()
         router?.dismiss()
-        
     }
     
     func updateTime(currentTime: Float, totalTime: Float) {

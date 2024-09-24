@@ -45,7 +45,6 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         output?.viewDidAppear()
-        
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -114,7 +113,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
         
         videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: defaultHeight)
-        videoPlayerBottomConstraint = viewVideoPlayer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        videoPlayerBottomConstraint = viewVideoPlayer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: defaultHeight + view.safeAreaInsets.bottom)
         
         NSLayoutConstraint.activate([
             dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -403,9 +402,20 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         }
     }
     
+    func animateShowVideoPlayerView() {
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.setVideoPlayerBottomConstraint(0)
+        }
+    }
+    
     func setVideoPlayerHeightConstraint(_ newHeight: CGFloat) {
         videoPlayerHeightConstraint.constant = newHeight
         view.layoutIfNeeded()
+    }
+    
+    private func setVideoPlayerBottomConstraint(_ newBottom: CGFloat) {
+        self.videoPlayerBottomConstraint.constant = newBottom
+        self.view.layoutIfNeeded()
     }
     
     ///Обработчики нажатий
@@ -473,8 +483,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             self.output?.didClose()
         }
         UIView.animate(withDuration: K.timeAnimate) {
-            self.videoPlayerBottomConstraint?.constant = self.defaultHeight
-            self.view.layoutIfNeeded()
+            self.setVideoPlayerBottomConstraint(self.defaultHeight)
         }
     }
 }

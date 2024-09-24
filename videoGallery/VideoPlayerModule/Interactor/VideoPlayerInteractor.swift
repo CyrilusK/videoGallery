@@ -66,6 +66,11 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
         player?.pause()
     }
     
+    func stopVideo() {
+        player?.pause()
+        player = nil
+    }
+    
     func getValuesPlayer() -> AVPlayer? {
         return player
     }
