@@ -78,88 +78,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "setupUI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6EDCB5D9-6245-4EA2-9D19-58B078B0EBF8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "setupUI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D27CFA37-24DF-4B41-A7EB-F3BDC7C1CE83"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "setupUI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2445B0D9-B38D-421B-8001-DC7E22ACDD0D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "setupUI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "89567015-E8D6-4B43-9BC3-DF3E5B88E348"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "setupUI()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "68A3DF49-7DC3-43A3-A336-2BD0CC1E58EA"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
             landmarkName = "setupUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +94,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -222,8 +142,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -285,8 +205,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -348,8 +268,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -396,8 +316,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -444,8 +364,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -492,8 +412,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -540,8 +460,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -588,8 +508,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -629,54 +549,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6035C675-131B-49EE-BE2F-F1AC1A357849"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "willTransition(to:with:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6035C675-131B-49EE-BE2F-F1AC1A357849 - 273efdd7a8ca7694"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "videoGallery.VideoPlayerViewController.willTransition(to: __C.UITraitCollection, with: __C.UIViewControllerTransitionCoordinator) -&gt; ()"
-                  moduleName = "videoGallery"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "1916">
-               </Location>
-               <Location
-                  uuid = "6035C675-131B-49EE-BE2F-F1AC1A357849 - 273efdd7a8ca7694"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "videoGallery.VideoPlayerViewController.willTransition(to: __C.UITraitCollection, with: __C.UIViewControllerTransitionCoordinator) -&gt; ()"
-                  moduleName = "videoGallery"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "1924">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "3FFCA6CF-384A-4B47-8941-84C7A5D862DF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -684,8 +556,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -732,8 +604,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -780,8 +652,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>
@@ -843,8 +715,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -859,8 +731,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -875,8 +747,8 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "willTransition(to:with:)"
             landmarkType = "7">
             <Locations>

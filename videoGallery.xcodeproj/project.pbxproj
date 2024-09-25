@@ -18,6 +18,8 @@
 		A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */; };
 		A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C72C94855700F60506 /* RemoteConfigManager.swift */; };
 		A541F5CA2C98871000F60506 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C92C98871000F60506 /* Extensions.swift */; };
+		A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */; };
+		A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */; };
 		A5BCE3C62C85CEC6004BE4A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */; };
 		A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C72C85CEC6004BE4A8 /* SceneDelegate.swift */; };
 		A5BCE3CA2C85CEC6004BE4A8 /* ListVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C92C85CEC6004BE4A8 /* ListVideosViewController.swift */; };
@@ -54,6 +56,8 @@
 		A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		A541F5C72C94855700F60506 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		A541F5C92C98871000F60506 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		A5BCE3C22C85CEC6004BE4A8 /* videoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = videoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5BCE3C72C85CEC6004BE4A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				A5BCE4062C87723C004BE4A8 /* VideoPlayerViewController.swift */,
+				A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */,
+				A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */,
 				A5BCE4102C886FFD004BE4A8 /* VideoPlayerViewInputProtocol.swift */,
 			);
 			path = View;
@@ -393,6 +399,7 @@
 				A5BCE4132C88706C004BE4A8 /* VideoPlayerInteractorInputProtocol.swift in Sources */,
 				A5BCE4112C886FFD004BE4A8 /* VideoPlayerViewInputProtocol.swift in Sources */,
 				A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */,
+				A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */,
 				A5BCE40F2C886FB3004BE4A8 /* VideoPlayerConfigurator.swift in Sources */,
 				A5BCE3FA2C870C45004BE4A8 /* VideoCell.swift in Sources */,
 				A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */,
@@ -401,6 +408,7 @@
 				A5BCE4172C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift in Sources */,
 				A5BCE3FE2C8715E4004BE4A8 /* ListVideosDelegate.swift in Sources */,
 				A5BCE3E32C85FCD6004BE4A8 /* Video.swift in Sources */,
+				A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */,
 				A5BCE3E82C85FE09004BE4A8 /* ListVideosConfigurator.swift in Sources */,
 				A5BCE3EA2C85FEA5004BE4A8 /* ListVideosInteractor.swift in Sources */,
 				A5BCE4092C886F29004BE4A8 /* VideoPlayerInteractor.swift in Sources */,
@@ -481,7 +489,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -535,7 +543,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

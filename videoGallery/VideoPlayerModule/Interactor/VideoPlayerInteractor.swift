@@ -52,7 +52,7 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
             guard let self = self, let player = self.player else { return }
             
             let currentTime = CMTimeGetSeconds(player.currentTime())
-            let totalTime = self.getDuration()
+            let totalTime = getDuration()
             
             self.output?.updateTime(currentTime: Float(currentTime), totalTime: Float(totalTime))
         })
