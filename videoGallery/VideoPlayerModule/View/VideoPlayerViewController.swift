@@ -38,31 +38,32 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         output?.viewDidAppear()
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        
-        guard let windowInterface = self.view.window?.windowScene?.interfaceOrientation else { return }
-        if windowInterface.isPortrait {
-            containerHeightConstraint.constant = defaultHeight
-            videoViewHeightConstraint.constant = defaultHeight
-            guard let image = UIImage(systemName: "arrow.up.left.and.arrow.down.right") else { return }
-            viewVideoPlayer.setImageToFullScreen(image)
-        }
-        else {
-            containerHeightConstraint.constant = view.frame.width
-            videoViewHeightConstraint.constant = view.frame.width - view.safeAreaInsets.bottom
-            guard let image = UIImage(systemName: "arrow.down.right.and.arrow.up.left") else { return }
-            viewVideoPlayer.setImageToFullScreen(image)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.playerLayer?.frame = self.viewVideoPlayer.bounds
-        })
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            let isPortrait = size.height > size.width
+            if isPortrait {
+                self.containerHeightConstraint.constant = self.defaultHeight
+                self.videoViewHeightConstraint.constant = self.defaultHeight
+                guard let image = UIImage(systemName: "arrow.up.left.and.arrow.down.right") else { return }
+                self.viewVideoPlayer.setImageToFullScreen(image)
+            } else {
+                self.containerHeightConstraint.constant = self.view.frame.height
+                self.videoViewHeightConstraint.constant = self.view.frame.height - self.view.safeAreaInsets.bottom
+                guard let image = UIImage(systemName: "arrow.down.right.and.arrow.up.left") else { return }
+                self.viewVideoPlayer.setImageToFullScreen(image)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.playerLayer?.frame = self.viewVideoPlayer.bounds
+            }
+        }, completion: nil)
     }
     
     /// Установка UI элементов
     func setConfigUI(config: VideoPlayerUIConfig) {
         self.config = config
-        viewVideoPlayer.configure(with: config)
+        DispatchQueue.main.async {
+            self.viewVideoPlayer.configure(with: config)
+        }
     }
     
     func setupUI() {
@@ -76,9 +77,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         guard let playerLayer = playerLayer else {
             return
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + K.timeAnimate, execute: {
-            playerLayer.frame = self.viewVideoPlayer.bounds
-        })
+        playerLayer.frame = self.viewVideoPlayer.bounds
         viewVideoPlayer.layer.addSublayer(playerLayer)
     }
     

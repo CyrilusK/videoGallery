@@ -13,27 +13,26 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     var router: VideoPlayerRouterInputProtocol?
     
     private var video: Video
+    private var hideControlsTimer: Timer?
     private var isPlaying = true
     private var isMuted = false
     var isThumbSeek = false
-    
-    private var hideControlsTimer: Timer?
     
     init(video: Video) {
         self.video = video
     }
     
     func viewDidLoad() {
-        interactor?.fetchRemoteConfig()
+        Task(priority: .userInitiated) {
+            await interactor?.fetchRemoteConfig()
+        }
+        view?.setupUI()
+        startHideControlsTimer()
     }
     
     func getRemoteConfig(_ config: VideoPlayerUIConfig?) {
-        DispatchQueue.main.async {
-            if let config = config {
-                self.view?.setConfigUI(config: config)
-            }
-            self.view?.setupUI()
-            self.startHideControlsTimer()
+        if let config = config {
+            self.view?.setConfigUI(config: config)
         }
     }
     
@@ -41,9 +40,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         interactor?.loadVideo(url: video.videoUrl)
         view?.setupVideoPlayerLayer(player: interactor?.getValuesPlayer())
         view?.animateShowDimmedView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + K.timeAnimate, execute: {
-            self.view?.animateShowVideoPlayerView()
-        })
+        self.view?.animateShowVideoPlayerView()
     }
     
     func didTapPlayPause() {

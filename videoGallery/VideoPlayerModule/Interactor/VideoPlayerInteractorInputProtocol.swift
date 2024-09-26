@@ -20,5 +20,5 @@ protocol VideoPlayerInteractorInputProtocol {
     func getDuration() -> Float64
     func replayVideo()
     func setPlayRate(rate: Float)
-    func fetchRemoteConfig()
+    func fetchRemoteConfig() async
 }
