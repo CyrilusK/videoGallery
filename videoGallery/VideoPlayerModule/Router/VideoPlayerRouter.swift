@@ -13,4 +13,11 @@ final class VideoPlayerRouter: VideoPlayerRouterInputProtocol {
     func dismiss() {
         entry?.dismiss(animated: false, completion: nil)
     }
+    
+    func presentDebug() {
+        let debugVC = DebugConfigurator().configure()
+        let navController = UINavigationController(rootViewController: debugVC)
+        navController.modalPresentationStyle = .fullScreen
+        entry?.present(navController, animated: true)
+    }
 }

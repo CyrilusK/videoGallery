@@ -25,4 +25,11 @@ final class ListVideosRouter: ListVideosRouterInputProtocol {
         videoPlayerVC.modalPresentationStyle = .overFullScreen
         entry?.present(videoPlayerVC, animated: false)
     }
+    
+    func presentDebug() {
+        let debugVC = DebugConfigurator().configure()
+        let navController = UINavigationController(rootViewController: debugVC)
+        navController.modalPresentationStyle = .fullScreen
+        entry?.present(navController, animated: true)
+    }
 }

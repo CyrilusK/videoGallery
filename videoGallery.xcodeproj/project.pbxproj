@@ -20,6 +20,14 @@
 		A541F5CA2C98871000F60506 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C92C98871000F60506 /* Extensions.swift */; };
 		A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */; };
 		A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */; };
+		A56A60A22CAAA21900872CAE /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A12CAAA21900872CAE /* DebugViewController.swift */; };
+		A56A60A52CAAA41400872CAE /* DebugConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A42CAAA41400872CAE /* DebugConfigurator.swift */; };
+		A56A60A72CAAA46600872CAE /* DebugPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A62CAAA46600872CAE /* DebugPresenter.swift */; };
+		A56A60A92CAAA4CE00872CAE /* DebugOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A82CAAA4CE00872CAE /* DebugOutputProtocol.swift */; };
+		A56A60AB2CAAA54E00872CAE /* DebugViewInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60AA2CAAA54E00872CAE /* DebugViewInputProtocol.swift */; };
+		A56A60AD2CAAA5FE00872CAE /* DebugRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60AC2CAAA5FE00872CAE /* DebugRouter.swift */; };
+		A56A60AF2CAAA62D00872CAE /* DebugRouterInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60AE2CAAA62D00872CAE /* DebugRouterInputProtocol.swift */; };
+		A56A60B62CAB202000872CAE /* FeatureTogglesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60B52CAB202000872CAE /* FeatureTogglesViewController.swift */; };
 		A5BCE3C62C85CEC6004BE4A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */; };
 		A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C72C85CEC6004BE4A8 /* SceneDelegate.swift */; };
 		A5BCE3CA2C85CEC6004BE4A8 /* ListVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE3C92C85CEC6004BE4A8 /* ListVideosViewController.swift */; };
@@ -58,6 +66,14 @@
 		A541F5C92C98871000F60506 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
+		A56A60A12CAAA21900872CAE /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		A56A60A42CAAA41400872CAE /* DebugConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugConfigurator.swift; sourceTree = "<group>"; };
+		A56A60A62CAAA46600872CAE /* DebugPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPresenter.swift; sourceTree = "<group>"; };
+		A56A60A82CAAA4CE00872CAE /* DebugOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOutputProtocol.swift; sourceTree = "<group>"; };
+		A56A60AA2CAAA54E00872CAE /* DebugViewInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewInputProtocol.swift; sourceTree = "<group>"; };
+		A56A60AC2CAAA5FE00872CAE /* DebugRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRouter.swift; sourceTree = "<group>"; };
+		A56A60AE2CAAA62D00872CAE /* DebugRouterInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugRouterInputProtocol.swift; sourceTree = "<group>"; };
+		A56A60B52CAB202000872CAE /* FeatureTogglesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTogglesViewController.swift; sourceTree = "<group>"; };
 		A5BCE3C22C85CEC6004BE4A8 /* videoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = videoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5BCE3C52C85CEC6004BE4A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5BCE3C72C85CEC6004BE4A8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +125,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A56A609C2CAAA17100872CAE /* DebugPanelModule */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60A32CAAA2E900872CAE /* Configurator */,
+				A56A60A02CAAA1AA00872CAE /* Router */,
+				A56A609F2CAAA19100872CAE /* Presenter */,
+				A56A609E2CAAA18900872CAE /* Interactor */,
+				A56A609D2CAAA18100872CAE /* View */,
+			);
+			path = DebugPanelModule;
+			sourceTree = "<group>";
+		};
+		A56A609D2CAAA18100872CAE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60A12CAAA21900872CAE /* DebugViewController.swift */,
+				A56A60AA2CAAA54E00872CAE /* DebugViewInputProtocol.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A56A609E2CAAA18900872CAE /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		A56A609F2CAAA19100872CAE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60A62CAAA46600872CAE /* DebugPresenter.swift */,
+				A56A60A82CAAA4CE00872CAE /* DebugOutputProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A56A60A02CAAA1AA00872CAE /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60AC2CAAA5FE00872CAE /* DebugRouter.swift */,
+				A56A60AE2CAAA62D00872CAE /* DebugRouterInputProtocol.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		A56A60A32CAAA2E900872CAE /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60A42CAAA41400872CAE /* DebugConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
+		A56A60B02CAB1A3E00872CAE /* FeatureTogglesModule */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60B42CAB200100872CAE /* View */,
+			);
+			path = FeatureTogglesModule;
+			sourceTree = "<group>";
+		};
+		A56A60B12CAB1A6200872CAE /* CrashesModule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CrashesModule;
+			sourceTree = "<group>";
+		};
+		A56A60B22CAB1A7B00872CAE /* UnfatalErrorsModule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UnfatalErrorsModule;
+			sourceTree = "<group>";
+		};
+		A56A60B32CAB1ABF00872CAE /* LoggerModule */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LoggerModule;
+			sourceTree = "<group>";
+		};
+		A56A60B42CAB200100872CAE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A56A60B52CAB202000872CAE /* FeatureTogglesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		A5BCE3B92C85CEC6004BE4A8 = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +235,11 @@
 		A5BCE3C42C85CEC6004BE4A8 /* videoGallery */ = {
 			isa = PBXGroup;
 			children = (
+				A56A60B32CAB1ABF00872CAE /* LoggerModule */,
+				A56A60B22CAB1A7B00872CAE /* UnfatalErrorsModule */,
+				A56A60B12CAB1A6200872CAE /* CrashesModule */,
+				A56A60B02CAB1A3E00872CAE /* FeatureTogglesModule */,
+				A56A609C2CAAA17100872CAE /* DebugPanelModule */,
 				A5BCE3DC2C85DEB1004BE4A8 /* VideoPlayerModule */,
 				A5BCE3DA2C85DE9E004BE4A8 /* ListVideosModule */,
 				A5BCE3D92C85DCA4004BE4A8 /* Managers */,
@@ -391,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5BCE4072C87723C004BE4A8 /* VideoPlayerViewController.swift in Sources */,
+				A56A60AB2CAAA54E00872CAE /* DebugViewInputProtocol.swift in Sources */,
 				A5BCE3F82C860A35004BE4A8 /* VideoApiManager.swift in Sources */,
 				A5BCE3F22C86012A004BE4A8 /* ListVideosOutputProtocol.swift in Sources */,
 				A5BCE3EE2C85FFE0004BE4A8 /* ListVideosViewInputProtocol.swift in Sources */,
@@ -401,23 +514,30 @@
 				A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */,
 				A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */,
 				A5BCE40F2C886FB3004BE4A8 /* VideoPlayerConfigurator.swift in Sources */,
+				A56A60A52CAAA41400872CAE /* DebugConfigurator.swift in Sources */,
 				A5BCE3FA2C870C45004BE4A8 /* VideoCell.swift in Sources */,
 				A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */,
 				A5BCE4002C87442B004BE4A8 /* VideoThumbnailManager.swift in Sources */,
 				A5BCE3FC2C8713E5004BE4A8 /* ListVideosDataSource.swift in Sources */,
+				A56A60B62CAB202000872CAE /* FeatureTogglesViewController.swift in Sources */,
 				A5BCE4172C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift in Sources */,
 				A5BCE3FE2C8715E4004BE4A8 /* ListVideosDelegate.swift in Sources */,
 				A5BCE3E32C85FCD6004BE4A8 /* Video.swift in Sources */,
+				A56A60A92CAAA4CE00872CAE /* DebugOutputProtocol.swift in Sources */,
 				A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */,
 				A5BCE3E82C85FE09004BE4A8 /* ListVideosConfigurator.swift in Sources */,
 				A5BCE3EA2C85FEA5004BE4A8 /* ListVideosInteractor.swift in Sources */,
 				A5BCE4092C886F29004BE4A8 /* VideoPlayerInteractor.swift in Sources */,
 				A5BCE3F62C86096B004BE4A8 /* Constants.swift in Sources */,
+				A56A60AD2CAAA5FE00872CAE /* DebugRouter.swift in Sources */,
 				A5BCE3F42C8601D4004BE4A8 /* ListVideosRouterInputProtocol.swift in Sources */,
+				A56A60A22CAAA21900872CAE /* DebugViewController.swift in Sources */,
 				A5BCE3C62C85CEC6004BE4A8 /* AppDelegate.swift in Sources */,
 				A5BCE3F02C86005B004BE4A8 /* ListVideosInteractorInputProtocol.swift in Sources */,
 				A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */,
 				A541F5CA2C98871000F60506 /* Extensions.swift in Sources */,
+				A56A60A72CAAA46600872CAE /* DebugPresenter.swift in Sources */,
+				A56A60AF2CAAA62D00872CAE /* DebugRouterInputProtocol.swift in Sources */,
 				A5BCE3E52C85FD3E004BE4A8 /* ListVideosPresenter.swift in Sources */,
 				A5BCE4152C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift in Sources */,
 				A5BCE40B2C886F5F004BE4A8 /* VideoPlayerPresenter.swift in Sources */,

@@ -58,6 +58,16 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         }, completion: nil)
     }
     
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            output?.presentDebug()
+        }
+    }
+    
     /// Установка UI элементов
     func setConfigUI(config: VideoPlayerUIConfig) {
         self.config = config

@@ -25,4 +25,5 @@ protocol VideoPlayerOutputProtocol: AnyObject {
     func didChangeSpeed(selectedIndex: Int)
     func getRemoteConfig(_ config: VideoPlayerUIConfig?)
     func handleHeight(_ gesture: UIPanGestureRecognizer, _ maxHeight: CGFloat, _ translation: CGPoint)
+    func presentDebug()
 }

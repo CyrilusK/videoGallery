@@ -61,5 +61,15 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            output?.presentDebug()
+        }
+    }
 }
 

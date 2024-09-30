@@ -169,4 +169,9 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
             break
         }
     }
+    
+    func presentDebug() {
+        router?.presentDebug()
+        interactor?.pauseVideo()
+    }
 }

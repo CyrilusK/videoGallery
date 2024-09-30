@@ -17,6 +17,7 @@ struct K {
     static let urlAPI = "https://demo0015790.mockable.io"
     
     static let reuseIdentifier = "VideoCell"
+    static let cell = "cell"
     
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
@@ -34,4 +35,6 @@ struct K {
     static let fullscreen = "fullscreen"
     static let normal = "normal"
     static let keyForRemoteConfig = "video_player_ui_config"
+    
+    static let CFBundleVersion = "CFBundleVersion"
 }

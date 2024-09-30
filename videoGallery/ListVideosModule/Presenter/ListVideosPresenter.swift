@@ -73,6 +73,10 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
     func getRemoteConfig(_ config: VideoPlayerUIConfig) {
         self.config = config
     }
+    
+    func presentDebug() {
+        router?.presentDebug()
+    }
 }
 
 

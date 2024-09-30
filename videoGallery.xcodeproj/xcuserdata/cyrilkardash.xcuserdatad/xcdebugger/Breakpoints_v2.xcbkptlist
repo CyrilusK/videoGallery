@@ -78,9 +78,9 @@
             filePath = "videoGallery/VideoPlayerModule/View/VideoPlayerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "setupUI()"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "setupVideoPlayerLayer(player:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
