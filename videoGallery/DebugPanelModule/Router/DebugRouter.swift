@@ -15,10 +15,16 @@ final class DebugRouter: DebugRouterInputProtocol {
     }
     
     func navigateToFeatureToggles() {
-        let featureTogglesVC = FeatureTogglesViewController()
+        let featureTogglesVC = FeatureToggleConfigurator().configure()
         entry?.navigationController?.pushViewController(featureTogglesVC, animated: true)
-//        let navigationController = UINavigationController(rootViewController: featureTogglesVC)
-//        entry?.present(navigationController, animated: true)
+    }
+    
+    func navigateToSetValues() {
+        
+    }
+    
+    func navigateToNetworkRequests() {
+        
     }
     
     func navigateToCrashes() {

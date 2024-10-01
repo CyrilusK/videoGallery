@@ -20,20 +20,27 @@ struct VideoPlayerUIConfig: Codable {
     let buttonSize: Float  // Размер кнопок
     let buttonSpacing: Float  // Пространство между кнопками в контроле
     let playbackSpeeds: [Float]  // Массив скоростей воспроизведения
-    let uiElementsVisibility: [String: Bool]  // Включение/выключение UI элементов
+    var uiElementsVisibility: [String: Bool]  // Включение/выключение UI элементов
 }
 
 final class RemoteConfigManager {
-    private let remoteConfig: RemoteConfig
-    init() {
+    static let shared = RemoteConfigManager()
+
+    private var remoteConfig: RemoteConfig
+    private var currentConfig: VideoPlayerUIConfig?
+    
+    private init() {
         self.remoteConfig = RemoteConfig.remoteConfig()
-        
         let settings = RemoteConfigSettings()
         settings.minimumFetchInterval = 0
         remoteConfig.configSettings = settings
     }
     
     func fetchRemoteConfig() async -> VideoPlayerUIConfig? {
+        if let config = currentConfig {
+            return config
+        }
+        
         do {
             try await remoteConfig.fetchAndActivate()
             guard let jsonString = remoteConfig.configValue(forKey: K.keyForRemoteConfig).stringValue else {
@@ -42,12 +49,17 @@ final class RemoteConfigManager {
             }
             let jsonData = Data(jsonString.utf8)
             let config = try JSONDecoder().decode(VideoPlayerUIConfig.self, from: jsonData)
+            currentConfig = config
             return config
         } catch {
             print("[DEBUG] – Ошибка декодирования JSON: \(error)")
             Crashlytics.crashlytics().record(error: error)
             return nil
         }
+    }
+    
+    func updateRemoteConfig(with config: VideoPlayerUIConfig?) {
+        currentConfig = config
     }
 }
 

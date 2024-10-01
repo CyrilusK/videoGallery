@@ -10,15 +10,12 @@ import UIKit
 final class DebugConfigurator {
     public func configure() -> UIViewController {
         let view = DebugViewController()
-        //let interactor = DebugInteractor()
         let presenter = DebugPresenter()
         let router = DebugRouter()
         
         view.output = presenter
         presenter.view = view
-        //presenter.interactor = interactor
         presenter.router = router
-        //interactor.output = presenter
         router.entry = view
         
         return view

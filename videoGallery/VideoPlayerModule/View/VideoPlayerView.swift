@@ -24,6 +24,18 @@ final class VideoPlayerView: UIView {
     private let totalTimeLabel = UILabel()
     private let speedSegmentedControl = UISegmentedControl()
     
+    private lazy var uiElements: [UIView] = [
+        centerControlsStackView,
+        muteButton,
+        closeButton,
+        fullScreenButton,
+        changeSpeedButton,
+        timeSlider,
+        currentTimeLabel,
+        totalTimeLabel,
+        speedSegmentedControl
+    ]
+    
     func configure(with config: VideoPlayerUIConfig) {
         self.config = config
         setupUI()
@@ -266,6 +278,12 @@ final class VideoPlayerView: UIView {
     }
     
     ///Функции для изменения состояний
+    func bringUIElementsToFront() {
+        for element in uiElements {
+            self.bringSubviewToFront(element)
+        }
+    }
+
     func setImageToPlayPause(_ image: UIImage) {
         playPauseButton.setImage(image, for: .normal)
     }

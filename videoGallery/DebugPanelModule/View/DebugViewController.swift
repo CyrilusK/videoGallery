@@ -11,7 +11,7 @@ final class DebugViewController: UITableViewController, DebugViewInputProtocol {
     var output: DebugOutputProtocol?
     
     private let closeButton = UIButton(type: .close)
-    private let items = ["🚩 Feature toggles", "❌ Краши (fatal ошибки)", "⚠️ Unfatal ошибки", "💬 Логирование"]
+    private let items = [K.featureToggles, K.setValues, K.networkRequests, K.crashes, K.nonfatal, K.logs]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,9 @@ final class DebugViewController: UITableViewController, DebugViewInputProtocol {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let device = UIDevice.current
-        return "Build: \(Bundle.main.infoDictionary?[K.CFBundleVersion] as? String ?? "N/A"), Device: \(device.model) - \(device.systemName) \(device.systemVersion)"
+        let appVersion = Bundle.main.infoDictionary?[K.CFBundleShortVersion] as? String ?? "N/A"
+        let buildNumber = Bundle.main.infoDictionary?[K.CFBundleVersion] as? String ?? "N/A"
+        return "Build: \(appVersion) (\(buildNumber)), Device: \(device.model) - \(device.systemName) \(device.systemVersion)"
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,8 +49,6 @@ final class DebugViewController: UITableViewController, DebugViewInputProtocol {
     }
     
     private func setupCloseButton() {
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeButton)
         closeButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: closeButton)
     }

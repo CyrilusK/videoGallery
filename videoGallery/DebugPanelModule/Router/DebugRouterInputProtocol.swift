@@ -10,6 +10,8 @@ import UIKit
 protocol DebugRouterInputProtocol {
     func dismiss()
     func navigateToFeatureToggles()
+    func navigateToSetValues()
+    func navigateToNetworkRequests()
     func navigateToCrashes()
     func navigateToUnfatal()
     func navigateToLogger()

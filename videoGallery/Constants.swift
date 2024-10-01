@@ -17,7 +17,6 @@ struct K {
     static let urlAPI = "https://demo0015790.mockable.io"
     
     static let reuseIdentifier = "VideoCell"
-    static let cell = "cell"
     
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
@@ -36,5 +35,15 @@ struct K {
     static let normal = "normal"
     static let keyForRemoteConfig = "video_player_ui_config"
     
+    //debug menu
+    static let cell = "cell"
+    static let CFBundleShortVersion = "CFBundleShortVersionString"
     static let CFBundleVersion = "CFBundleVersion"
+    static let toggleCell = "toggleCell"
+    static let featureToggles = "🚩 Feature toggles"
+    static let setValues = "✏️ Set values for Remote Config"
+    static let networkRequests = "🌐 Cетевые запросы"
+    static let crashes = "❌ Краши (fatal ошибки)"
+    static let nonfatal = "⚠️ Non-fatal ошибки"
+    static let logs = "💬 Логи аналитики"
 }

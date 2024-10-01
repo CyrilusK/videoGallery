@@ -9,7 +9,6 @@ import UIKit
 
 final class DebugPresenter: DebugOutputProtocol {
     weak var view: DebugViewInputProtocol?
-    //    var interactor: DebugInteractorInputProtocol?
     var router: DebugRouterInputProtocol?
     
     func viewDidLoad() {
@@ -21,10 +20,14 @@ final class DebugPresenter: DebugOutputProtocol {
         case 0:
             router?.navigateToFeatureToggles()
         case 1:
-            router?.navigateToCrashes()
+            router?.navigateToSetValues()
         case 2:
-            router?.navigateToUnfatal()
+            router?.navigateToNetworkRequests()
         case 3:
+            router?.navigateToCrashes()
+        case 4:
+            router?.navigateToUnfatal()
+        case 5:
             router?.navigateToLogger()
         default:
             break

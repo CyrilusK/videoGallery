@@ -105,7 +105,7 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
     }
     
     func fetchRemoteConfig() async {
-        guard let config = await RemoteConfigManager().fetchRemoteConfig() else {
+        guard let config = await RemoteConfigManager.shared.fetchRemoteConfig() else {
             print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
             output?.getRemoteConfig(nil)
             return

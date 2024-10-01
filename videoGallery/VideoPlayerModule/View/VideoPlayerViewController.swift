@@ -89,6 +89,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         }
         playerLayer.frame = self.viewVideoPlayer.bounds
         viewVideoPlayer.layer.addSublayer(playerLayer)
+        viewVideoPlayer.bringUIElementsToFront()
     }
     
     private func setupViewVideoPlayer() {

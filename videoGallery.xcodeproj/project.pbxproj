@@ -18,6 +18,9 @@
 		A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */; };
 		A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C72C94855700F60506 /* RemoteConfigManager.swift */; };
 		A541F5CA2C98871000F60506 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541F5C92C98871000F60506 /* Extensions.swift */; };
+		A5571D812CAC387800191210 /* FeatureToggleViewInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D802CAC387800191210 /* FeatureToggleViewInputProtocol.swift */; };
+		A5571D832CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D822CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift */; };
+		A5571D852CAC38F500191210 /* FeatureToggleOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D842CAC38F500191210 /* FeatureToggleOutputProtocol.swift */; };
 		A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */; };
 		A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */; };
 		A56A60A22CAAA21900872CAE /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A12CAAA21900872CAE /* DebugViewController.swift */; };
@@ -57,6 +60,9 @@
 		A5BCE4132C88706C004BE4A8 /* VideoPlayerInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE4122C88706C004BE4A8 /* VideoPlayerInteractorInputProtocol.swift */; };
 		A5BCE4152C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE4142C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift */; };
 		A5BCE4172C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCE4162C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift */; };
+		A5D3F9692CAC2B3E00668391 /* FeatureToggleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D3F9682CAC2B3E00668391 /* FeatureToggleInteractor.swift */; };
+		A5D3F96B2CAC2B5000668391 /* FeatureTogglePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D3F96A2CAC2B5000668391 /* FeatureTogglePresenter.swift */; };
+		A5D3F96F2CAC2B7100668391 /* FeatureToggleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D3F96E2CAC2B7100668391 /* FeatureToggleConfigurator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +70,9 @@
 		A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		A541F5C72C94855700F60506 /* RemoteConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigManager.swift; sourceTree = "<group>"; };
 		A541F5C92C98871000F60506 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A5571D802CAC387800191210 /* FeatureToggleViewInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleViewInputProtocol.swift; sourceTree = "<group>"; };
+		A5571D822CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleInteractorInputProtocol.swift; sourceTree = "<group>"; };
+		A5571D842CAC38F500191210 /* FeatureToggleOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleOutputProtocol.swift; sourceTree = "<group>"; };
 		A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		A56A60A12CAAA21900872CAE /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +114,9 @@
 		A5BCE4122C88706C004BE4A8 /* VideoPlayerInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerInteractorInputProtocol.swift; sourceTree = "<group>"; };
 		A5BCE4142C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerOutputProtocol.swift; sourceTree = "<group>"; };
 		A5BCE4162C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRouterInputProtocol.swift; sourceTree = "<group>"; };
+		A5D3F9682CAC2B3E00668391 /* FeatureToggleInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleInteractor.swift; sourceTree = "<group>"; };
+		A5D3F96A2CAC2B5000668391 /* FeatureTogglePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTogglePresenter.swift; sourceTree = "<group>"; };
+		A5D3F96E2CAC2B7100668391 /* FeatureToggleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +143,6 @@
 				A56A60A32CAAA2E900872CAE /* Configurator */,
 				A56A60A02CAAA1AA00872CAE /* Router */,
 				A56A609F2CAAA19100872CAE /* Presenter */,
-				A56A609E2CAAA18900872CAE /* Interactor */,
 				A56A609D2CAAA18100872CAE /* View */,
 			);
 			path = DebugPanelModule;
@@ -144,13 +155,6 @@
 				A56A60AA2CAAA54E00872CAE /* DebugViewInputProtocol.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		A56A609E2CAAA18900872CAE /* Interactor */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Interactor;
 			sourceTree = "<group>";
 		};
 		A56A609F2CAAA19100872CAE /* Presenter */ = {
@@ -182,6 +186,9 @@
 		A56A60B02CAB1A3E00872CAE /* FeatureTogglesModule */ = {
 			isa = PBXGroup;
 			children = (
+				A56A60BA2CABF17E00872CAE /* Configurator */,
+				A56A60B82CABF13C00872CAE /* Presenter */,
+				A56A60B72CABF12500872CAE /* Interactor */,
 				A56A60B42CAB200100872CAE /* View */,
 			);
 			path = FeatureTogglesModule;
@@ -212,8 +219,35 @@
 			isa = PBXGroup;
 			children = (
 				A56A60B52CAB202000872CAE /* FeatureTogglesViewController.swift */,
+				A5571D802CAC387800191210 /* FeatureToggleViewInputProtocol.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A56A60B72CABF12500872CAE /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				A5D3F9682CAC2B3E00668391 /* FeatureToggleInteractor.swift */,
+				A5571D822CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		A56A60B82CABF13C00872CAE /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A5D3F96A2CAC2B5000668391 /* FeatureTogglePresenter.swift */,
+				A5571D842CAC38F500191210 /* FeatureToggleOutputProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A56A60BA2CABF17E00872CAE /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				A5D3F96E2CAC2B7100668391 /* FeatureToggleConfigurator.swift */,
+			);
+			path = Configurator;
 			sourceTree = "<group>";
 		};
 		A5BCE3B92C85CEC6004BE4A8 = {
@@ -504,11 +538,14 @@
 			files = (
 				A5BCE4072C87723C004BE4A8 /* VideoPlayerViewController.swift in Sources */,
 				A56A60AB2CAAA54E00872CAE /* DebugViewInputProtocol.swift in Sources */,
+				A5D3F96F2CAC2B7100668391 /* FeatureToggleConfigurator.swift in Sources */,
+				A5571D852CAC38F500191210 /* FeatureToggleOutputProtocol.swift in Sources */,
 				A5BCE3F82C860A35004BE4A8 /* VideoApiManager.swift in Sources */,
 				A5BCE3F22C86012A004BE4A8 /* ListVideosOutputProtocol.swift in Sources */,
 				A5BCE3EE2C85FFE0004BE4A8 /* ListVideosViewInputProtocol.swift in Sources */,
 				A5BCE3EC2C85FEF9004BE4A8 /* ListVideosRouter.swift in Sources */,
 				A5BCE3CA2C85CEC6004BE4A8 /* ListVideosViewController.swift in Sources */,
+				A5D3F96B2CAC2B5000668391 /* FeatureTogglePresenter.swift in Sources */,
 				A5BCE4132C88706C004BE4A8 /* VideoPlayerInteractorInputProtocol.swift in Sources */,
 				A5BCE4112C886FFD004BE4A8 /* VideoPlayerViewInputProtocol.swift in Sources */,
 				A541F5C62C934D6A00F60506 /* AnalyticsManager.swift in Sources */,
@@ -525,6 +562,7 @@
 				A5BCE3E32C85FCD6004BE4A8 /* Video.swift in Sources */,
 				A56A60A92CAAA4CE00872CAE /* DebugOutputProtocol.swift in Sources */,
 				A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */,
+				A5571D832CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift in Sources */,
 				A5BCE3E82C85FE09004BE4A8 /* ListVideosConfigurator.swift in Sources */,
 				A5BCE3EA2C85FEA5004BE4A8 /* ListVideosInteractor.swift in Sources */,
 				A5BCE4092C886F29004BE4A8 /* VideoPlayerInteractor.swift in Sources */,
@@ -541,7 +579,9 @@
 				A5BCE3E52C85FD3E004BE4A8 /* ListVideosPresenter.swift in Sources */,
 				A5BCE4152C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift in Sources */,
 				A5BCE40B2C886F5F004BE4A8 /* VideoPlayerPresenter.swift in Sources */,
+				A5571D812CAC387800191210 /* FeatureToggleViewInputProtocol.swift in Sources */,
 				A5BCE40D2C886F92004BE4A8 /* VideoPlayerRouter.swift in Sources */,
+				A5D3F9692CAC2B3E00668391 /* FeatureToggleInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

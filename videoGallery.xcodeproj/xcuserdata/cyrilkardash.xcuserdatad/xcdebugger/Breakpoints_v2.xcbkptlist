@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "setupVideoPlayerLayer(player:)"
+            landmarkName = "setupUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,6 +127,21 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "30"
                   endingLineNumber = "30"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "74A419FA-DD00-4034-92D4-5A9A9F1D112C - f1e4359c038e4eae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.VideoPlayerPresenter.getRemoteConfig(Swift.Optional&lt;videoGallery.VideoPlayerUIConfig&gt;) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/VideoPlayerModule/Presenter/VideoPlayerPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
                   offsetFromSymbolStart = "44">
                </Location>
             </Locations>
@@ -192,6 +207,21 @@
                   startingLineNumber = "37"
                   endingLineNumber = "37"
                   offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  uuid = "8C44FDA1-7278-4D25-8E84-8844656C2ACD - f1e4359c038e4e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.VideoPlayerPresenter.getRemoteConfig(Swift.Optional&lt;videoGallery.VideoPlayerUIConfig&gt;) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/VideoPlayerModule/Presenter/VideoPlayerPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "300">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -434,6 +464,294 @@
             endingLineNumber = "39"
             landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "477DC13B-6CC9-483B-BD53-AEDB76A35E9E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "toggleSwitchChanged(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "477DC13B-6CC9-483B-BD53-AEDB76A35E9E - 4007042efdf8cbb2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "276">
+               </Location>
+               <Location
+                  uuid = "477DC13B-6CC9-483B-BD53-AEDB76A35E9E - 4007042efdf8cb0e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "276">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D27BFA77-C96C-419F-835F-67AD67365999"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "toggleSwitchChanged(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D27BFA77-C96C-419F-835F-67AD67365999 - 4007042efdf8cbb2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "276">
+               </Location>
+               <Location
+                  uuid = "D27BFA77-C96C-419F-835F-67AD67365999 - 4007042efdf8cb0e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "276">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BECF546D-43C2-4E29-A688-A2F4F473F435"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "toggleSwitchChanged(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BECF546D-43C2-4E29-A688-A2F4F473F435 - 4007042efdf8cb2f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "1140">
+               </Location>
+               <Location
+                  uuid = "BECF546D-43C2-4E29-A688-A2F4F473F435 - 4007042efdf8caab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "1140">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A40C6576-BBD2-4FE7-ADD1-3B4EC6E58C3B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "toggleSwitchChanged(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A40C6576-BBD2-4FE7-ADD1-3B4EC6E58C3B - 4007042efdf8cb0e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "1464">
+               </Location>
+               <Location
+                  uuid = "A40C6576-BBD2-4FE7-ADD1-3B4EC6E58C3B - 4007042efdf8ca8a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "1464">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5DCAFF36-3BEA-4D65-913E-768885EDB435"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "toggleSwitchChanged(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5DCAFF36-3BEA-4D65-913E-768885EDB435 - 4007042efdf8cb2f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "1140">
+               </Location>
+               <Location
+                  uuid = "5DCAFF36-3BEA-4D65-913E-768885EDB435 - 4007042efdf8caab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "1140">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8821FB32-048E-4BAA-8A2C-2649109C03A2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "toggleSwitchChanged(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8821FB32-048E-4BAA-8A2C-2649109C03A2 - 4007042efdf8cac8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "2016">
+               </Location>
+               <Location
+                  uuid = "8821FB32-048E-4BAA-8A2C-2649109C03A2 - 4007042efdf8ca65"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "videoGallery.FeatureTogglesViewController.toggleSwitchChanged(__C.UISwitch) -&gt; ()"
+                  moduleName = "videoGallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cyrilkardash/Desktop/iOS/projects/videoGallery/videoGallery/FeatureTogglesModule/View/FeatureTogglesViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "1564">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
