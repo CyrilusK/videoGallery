@@ -21,6 +21,14 @@
 		A5571D812CAC387800191210 /* FeatureToggleViewInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D802CAC387800191210 /* FeatureToggleViewInputProtocol.swift */; };
 		A5571D832CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D822CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift */; };
 		A5571D852CAC38F500191210 /* FeatureToggleOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D842CAC38F500191210 /* FeatureToggleOutputProtocol.swift */; };
+		A5571D8E2CAD4E8400191210 /* SetValuesConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D8D2CAD4E8400191210 /* SetValuesConfigurator.swift */; };
+		A5571D902CAD4EB800191210 /* SetValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D8F2CAD4EB800191210 /* SetValuesViewController.swift */; };
+		A5571D922CAD4EDB00191210 /* SetValuesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D912CAD4EDB00191210 /* SetValuesPresenter.swift */; };
+		A5571D942CAD4F0F00191210 /* SetValuesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D932CAD4F0F00191210 /* SetValuesInteractor.swift */; };
+		A5571D962CAD4F4800191210 /* SetValuesOutputProcotol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D952CAD4F4800191210 /* SetValuesOutputProcotol.swift */; };
+		A5571D982CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D972CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift */; };
+		A5571D9A2CAD4FC600191210 /* SetValuesViewInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D992CAD4FC600191210 /* SetValuesViewInputProtocol.swift */; };
+		A5571D9C2CADAE1400191210 /* SetValuesTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D9B2CADAE1400191210 /* SetValuesTextFieldDelegate.swift */; };
 		A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */; };
 		A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */; };
 		A56A60A22CAAA21900872CAE /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A12CAAA21900872CAE /* DebugViewController.swift */; };
@@ -73,6 +81,14 @@
 		A5571D802CAC387800191210 /* FeatureToggleViewInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleViewInputProtocol.swift; sourceTree = "<group>"; };
 		A5571D822CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleInteractorInputProtocol.swift; sourceTree = "<group>"; };
 		A5571D842CAC38F500191210 /* FeatureToggleOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureToggleOutputProtocol.swift; sourceTree = "<group>"; };
+		A5571D8D2CAD4E8400191210 /* SetValuesConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesConfigurator.swift; sourceTree = "<group>"; };
+		A5571D8F2CAD4EB800191210 /* SetValuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesViewController.swift; sourceTree = "<group>"; };
+		A5571D912CAD4EDB00191210 /* SetValuesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesPresenter.swift; sourceTree = "<group>"; };
+		A5571D932CAD4F0F00191210 /* SetValuesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesInteractor.swift; sourceTree = "<group>"; };
+		A5571D952CAD4F4800191210 /* SetValuesOutputProcotol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesOutputProcotol.swift; sourceTree = "<group>"; };
+		A5571D972CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesInteractorInputProtocol.swift; sourceTree = "<group>"; };
+		A5571D992CAD4FC600191210 /* SetValuesViewInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesViewInputProtocol.swift; sourceTree = "<group>"; };
+		A5571D9B2CADAE1400191210 /* SetValuesTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesTextFieldDelegate.swift; sourceTree = "<group>"; };
 		A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		A56A60A12CAAA21900872CAE /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +153,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A5571D882CAD4E1100191210 /* SetValuesModule */ = {
+			isa = PBXGroup;
+			children = (
+				A5571D9B2CADAE1400191210 /* SetValuesTextFieldDelegate.swift */,
+				A5571D8C2CAD4E5400191210 /* Configurator */,
+				A5571D8B2CAD4E4900191210 /* Presenter */,
+				A5571D8A2CAD4E4100191210 /* Interactor */,
+				A5571D892CAD4E3300191210 /* View */,
+			);
+			path = SetValuesModule;
+			sourceTree = "<group>";
+		};
+		A5571D892CAD4E3300191210 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A5571D8F2CAD4EB800191210 /* SetValuesViewController.swift */,
+				A5571D992CAD4FC600191210 /* SetValuesViewInputProtocol.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A5571D8A2CAD4E4100191210 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				A5571D932CAD4F0F00191210 /* SetValuesInteractor.swift */,
+				A5571D972CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		A5571D8B2CAD4E4900191210 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A5571D912CAD4EDB00191210 /* SetValuesPresenter.swift */,
+				A5571D952CAD4F4800191210 /* SetValuesOutputProcotol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A5571D8C2CAD4E5400191210 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				A5571D8D2CAD4E8400191210 /* SetValuesConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
 		A56A609C2CAAA17100872CAE /* DebugPanelModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,6 +335,7 @@
 				A56A60B32CAB1ABF00872CAE /* LoggerModule */,
 				A56A60B22CAB1A7B00872CAE /* UnfatalErrorsModule */,
 				A56A60B12CAB1A6200872CAE /* CrashesModule */,
+				A5571D882CAD4E1100191210 /* SetValuesModule */,
 				A56A60B02CAB1A3E00872CAE /* FeatureTogglesModule */,
 				A56A609C2CAAA17100872CAE /* DebugPanelModule */,
 				A5BCE3DC2C85DEB1004BE4A8 /* VideoPlayerModule */,
@@ -538,7 +602,10 @@
 			files = (
 				A5BCE4072C87723C004BE4A8 /* VideoPlayerViewController.swift in Sources */,
 				A56A60AB2CAAA54E00872CAE /* DebugViewInputProtocol.swift in Sources */,
+				A5571D9C2CADAE1400191210 /* SetValuesTextFieldDelegate.swift in Sources */,
+				A5571D962CAD4F4800191210 /* SetValuesOutputProcotol.swift in Sources */,
 				A5D3F96F2CAC2B7100668391 /* FeatureToggleConfigurator.swift in Sources */,
+				A5571D902CAD4EB800191210 /* SetValuesViewController.swift in Sources */,
 				A5571D852CAC38F500191210 /* FeatureToggleOutputProtocol.swift in Sources */,
 				A5BCE3F82C860A35004BE4A8 /* VideoApiManager.swift in Sources */,
 				A5BCE3F22C86012A004BE4A8 /* ListVideosOutputProtocol.swift in Sources */,
@@ -554,17 +621,21 @@
 				A56A60A52CAAA41400872CAE /* DebugConfigurator.swift in Sources */,
 				A5BCE3FA2C870C45004BE4A8 /* VideoCell.swift in Sources */,
 				A541F5C82C94855700F60506 /* RemoteConfigManager.swift in Sources */,
+				A5571D922CAD4EDB00191210 /* SetValuesPresenter.swift in Sources */,
 				A5BCE4002C87442B004BE4A8 /* VideoThumbnailManager.swift in Sources */,
 				A5BCE3FC2C8713E5004BE4A8 /* ListVideosDataSource.swift in Sources */,
 				A56A60B62CAB202000872CAE /* FeatureTogglesViewController.swift in Sources */,
 				A5BCE4172C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift in Sources */,
 				A5BCE3FE2C8715E4004BE4A8 /* ListVideosDelegate.swift in Sources */,
+				A5571D982CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift in Sources */,
 				A5BCE3E32C85FCD6004BE4A8 /* Video.swift in Sources */,
 				A56A60A92CAAA4CE00872CAE /* DebugOutputProtocol.swift in Sources */,
 				A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */,
 				A5571D832CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift in Sources */,
+				A5571D942CAD4F0F00191210 /* SetValuesInteractor.swift in Sources */,
 				A5BCE3E82C85FE09004BE4A8 /* ListVideosConfigurator.swift in Sources */,
 				A5BCE3EA2C85FEA5004BE4A8 /* ListVideosInteractor.swift in Sources */,
+				A5571D9A2CAD4FC600191210 /* SetValuesViewInputProtocol.swift in Sources */,
 				A5BCE4092C886F29004BE4A8 /* VideoPlayerInteractor.swift in Sources */,
 				A5BCE3F62C86096B004BE4A8 /* Constants.swift in Sources */,
 				A56A60AD2CAAA5FE00872CAE /* DebugRouter.swift in Sources */,
@@ -575,6 +646,7 @@
 				A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */,
 				A541F5CA2C98871000F60506 /* Extensions.swift in Sources */,
 				A56A60A72CAAA46600872CAE /* DebugPresenter.swift in Sources */,
+				A5571D8E2CAD4E8400191210 /* SetValuesConfigurator.swift in Sources */,
 				A56A60AF2CAAA62D00872CAE /* DebugRouterInputProtocol.swift in Sources */,
 				A5BCE3E52C85FD3E004BE4A8 /* ListVideosPresenter.swift in Sources */,
 				A5BCE4152C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift in Sources */,

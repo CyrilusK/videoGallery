@@ -20,7 +20,8 @@ final class DebugRouter: DebugRouterInputProtocol {
     }
     
     func navigateToSetValues() {
-        
+        let setValuesVC = SetValuesConfigurator().configure()
+        entry?.navigationController?.pushViewController(setValuesVC, animated: true)
     }
     
     func navigateToNetworkRequests() {

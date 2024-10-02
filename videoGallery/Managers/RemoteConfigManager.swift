@@ -9,18 +9,33 @@ import UIKit
 import Firebase
 
 struct VideoPlayerUIConfig: Codable {
-    let cellCount: Int  // Количество столбцов
-    let backgroundColor: String  // Цвет фона
-    let timeLabelTextColor: String  // Цвет шрифта времени
-    let labelBackgroundColor: String  // Цвет фона лейбла и кнопок
-    let segmentedControlBackgroundColor: String  // Цвет фона SegmentedControl
-    let segmentedControlSelectedItemColor: String  // Цвет выбранного элемента SegmentedControl
-    let sliderColor: String  // Цвет ползунка
-    let videoConstraintHeight: Float  // Высота констрейнта видео в обычном режиме
-    let buttonSize: Float  // Размер кнопок
-    let buttonSpacing: Float  // Пространство между кнопками в контроле
-    let playbackSpeeds: [Float]  // Массив скоростей воспроизведения
+    var cellCount: Int  // Количество столбцов
+    var backgroundColor: String  // Цвет фона
+    var timeLabelTextColor: String  // Цвет шрифта времени
+    var labelBackgroundColor: String  // Цвет фона лейбла и кнопок
+    var segmentedControlBackgroundColor: String  // Цвет фона SegmentedControl
+    var segmentedControlSelectedItemColor: String  // Цвет выбранного элемента SegmentedControl
+    var sliderColor: String  // Цвет ползунка
+    var videoConstraintHeight: Float  // Высота констрейнта видео в обычном режиме
+    var buttonSize: Float  // Размер кнопок
+    var buttonSpacing: Float  // Пространство между кнопками в контроле
+    var playbackSpeeds: [Float]  // Массив скоростей воспроизведения
     var uiElementsVisibility: [String: Bool]  // Включение/выключение UI элементов
+    
+    func toDictionary() -> [String: String] {
+        return [
+            K.columnCount: "\(cellCount)",
+            K.backgroundColor: backgroundColor,
+            K.timeLabelTextColor: timeLabelTextColor,
+            K.labelBackgroundColor: labelBackgroundColor,
+            K.segmentBackgroundColor: segmentedControlBackgroundColor,
+            K.segmentSelectedItemColor: segmentedControlSelectedItemColor,
+            K.sliderColor: sliderColor,
+            K.videoConstraintHeight: "\(videoConstraintHeight)",
+            K.buttonSize: "\(buttonSize)",
+            K.buttonSpacing: "\(buttonSpacing)"
+        ]
+    }
 }
 
 final class RemoteConfigManager {

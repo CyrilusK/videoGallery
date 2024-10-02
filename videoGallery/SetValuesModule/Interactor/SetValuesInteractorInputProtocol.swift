@@ -5,4 +5,10 @@
 //  Created by Cyril Kardash on 02.10.2024.
 //
 
-import Foundation
+import UIKit
+
+protocol SetValuesInteractorInputProtocol: AnyObject {
+    func fetchRemoteConfig()
+    func saveConfig(config: VideoPlayerUIConfig?)
+    func resetConfig()
+}
