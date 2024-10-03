@@ -40,6 +40,9 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
     func reloadData() {
         DispatchQueue.main.async {
             self.videosCollectionView.reloadData()
+            self.videosCollectionView.collectionViewLayout.invalidateLayout()
+            let color = UIColor.fromNamedColor(self.output?.config?.backgroundColor ?? "white")
+            self.videosCollectionView.backgroundColor = color
         }
     }
     

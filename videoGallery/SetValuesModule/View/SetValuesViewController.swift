@@ -21,6 +21,7 @@ final class SetValuesViewController: UIViewController, SetValuesViewInputProtoco
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         output?.saveConfig()
+        NotificationCenter.default.post(name: NSNotification.Name("dataUpdated"), object: nil)
     }
     
     func setupUI() {

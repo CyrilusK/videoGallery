@@ -37,9 +37,11 @@ final class VideoThumbnailManager {
         
         do {
             let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+            NetworkLogger().logRequest(url: url.absoluteString, method: K.get, statusCode: 200)
             return UIImage(cgImage: cgImage)
         } catch {
             print("[DEBUG] - Error generating thumbnail: \(error.localizedDescription)")
+            NetworkLogger().logRequest(url: url.absoluteString, method: K.get, statusCode: 500)
             Crashlytics.crashlytics().record(error: error)
             return nil
         }

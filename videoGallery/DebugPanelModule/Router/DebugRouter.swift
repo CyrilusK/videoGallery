@@ -25,7 +25,8 @@ final class DebugRouter: DebugRouterInputProtocol {
     }
     
     func navigateToNetworkRequests() {
-        
+        let networkVC = NetworkRequestsConfigurator().configure()
+        entry?.navigationController?.pushViewController(networkVC, animated: true)
     }
     
     func navigateToCrashes() {

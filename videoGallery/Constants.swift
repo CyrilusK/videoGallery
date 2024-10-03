@@ -13,10 +13,14 @@ struct K {
     static let decodingError = "Failed to decode data:"
     static let networkError = "Network error:"
     static let serverError = "Failed to download image from server"
+    static let get = "GET"
     
     static let urlAPI = "https://demo0015790.mockable.io"
     
     static let reuseIdentifier = "VideoCell"
+    static let cell = "cell"
+    static let toggleCell = "toggleCell"
+    static let networkLogCell = "NetworkLogCell"
     
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
@@ -36,10 +40,8 @@ struct K {
     static let keyForRemoteConfig = "video_player_ui_config"
     
     //debug menu
-    static let cell = "cell"
     static let CFBundleShortVersion = "CFBundleShortVersionString"
     static let CFBundleVersion = "CFBundleVersion"
-    static let toggleCell = "toggleCell"
     static let featureToggles = "🚩 Feature toggles"
     static let setValues = "✏️ Кастомизация"
     static let networkRequests = "🌐 Cетевые запросы"

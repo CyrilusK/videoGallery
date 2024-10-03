@@ -73,12 +73,12 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         self.config = config
         DispatchQueue.main.async {
             self.viewVideoPlayer.configure(with: config)
+            self.setupViewVideoPlayer()
         }
     }
     
     func setupUI() {
         view.backgroundColor = .clear
-        setupViewVideoPlayer()
     }
     
     func setupVideoPlayerLayer(player: AVPlayer?) {
@@ -93,7 +93,7 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
     }
     
     private func setupViewVideoPlayer() {
-        containerView.backgroundColor = .systemGroupedBackground
+        containerView.backgroundColor = UIColor.fromNamedColor(config?.backgroundColor ?? "white")
         dimmedView.backgroundColor = .black
         
         view.addSubview(containerView)

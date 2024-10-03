@@ -29,6 +29,16 @@
 		A5571D982CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D972CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift */; };
 		A5571D9A2CAD4FC600191210 /* SetValuesViewInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D992CAD4FC600191210 /* SetValuesViewInputProtocol.swift */; };
 		A5571D9C2CADAE1400191210 /* SetValuesTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571D9B2CADAE1400191210 /* SetValuesTextFieldDelegate.swift */; };
+		A5571DA42CAEBC2B00191210 /* NetworkRequestsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DA32CAEBC2B00191210 /* NetworkRequestsConfigurator.swift */; };
+		A5571DA62CAEBC9400191210 /* NetworkRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DA52CAEBC9400191210 /* NetworkRequestsViewController.swift */; };
+		A5571DA82CAEC64400191210 /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DA72CAEC64400191210 /* NetworkLogger.swift */; };
+		A5571DAA2CAEC94F00191210 /* NetworkLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DA92CAEC94F00191210 /* NetworkLog.swift */; };
+		A5571DAC2CAEC9A600191210 /* NetworkLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DAB2CAEC9A600191210 /* NetworkLogCell.swift */; };
+		A5571DAE2CAEFBE100191210 /* NetworkRequestsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DAD2CAEFBE100191210 /* NetworkRequestsPresenter.swift */; };
+		A5571DB02CAEFC8C00191210 /* NetworkRequestsOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DAF2CAEFC8C00191210 /* NetworkRequestsOutputProtocol.swift */; };
+		A5571DB32CAEFCD300191210 /* NetworkRequestsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DB22CAEFCD300191210 /* NetworkRequestsInteractor.swift */; };
+		A5571DB52CAEFD8A00191210 /* NetworkRequestsInteractorInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DB42CAEFD8A00191210 /* NetworkRequestsInteractorInputProtocol.swift */; };
+		A5571DB72CAEFE3F00191210 /* NetworkRequestsViewInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5571DB62CAEFE3F00191210 /* NetworkRequestsViewInputProtocol.swift */; };
 		A56A60972CA3FB7B00872CAE /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */; };
 		A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */; };
 		A56A60A22CAAA21900872CAE /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A56A60A12CAAA21900872CAE /* DebugViewController.swift */; };
@@ -89,6 +99,16 @@
 		A5571D972CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesInteractorInputProtocol.swift; sourceTree = "<group>"; };
 		A5571D992CAD4FC600191210 /* SetValuesViewInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesViewInputProtocol.swift; sourceTree = "<group>"; };
 		A5571D9B2CADAE1400191210 /* SetValuesTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetValuesTextFieldDelegate.swift; sourceTree = "<group>"; };
+		A5571DA32CAEBC2B00191210 /* NetworkRequestsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsConfigurator.swift; sourceTree = "<group>"; };
+		A5571DA52CAEBC9400191210 /* NetworkRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsViewController.swift; sourceTree = "<group>"; };
+		A5571DA72CAEC64400191210 /* NetworkLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		A5571DA92CAEC94F00191210 /* NetworkLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLog.swift; sourceTree = "<group>"; };
+		A5571DAB2CAEC9A600191210 /* NetworkLogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLogCell.swift; sourceTree = "<group>"; };
+		A5571DAD2CAEFBE100191210 /* NetworkRequestsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsPresenter.swift; sourceTree = "<group>"; };
+		A5571DAF2CAEFC8C00191210 /* NetworkRequestsOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsOutputProtocol.swift; sourceTree = "<group>"; };
+		A5571DB22CAEFCD300191210 /* NetworkRequestsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsInteractor.swift; sourceTree = "<group>"; };
+		A5571DB42CAEFD8A00191210 /* NetworkRequestsInteractorInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsInteractorInputProtocol.swift; sourceTree = "<group>"; };
+		A5571DB62CAEFE3F00191210 /* NetworkRequestsViewInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestsViewInputProtocol.swift; sourceTree = "<group>"; };
 		A56A60962CA3FB7B00872CAE /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		A56A60982CA44EE200872CAE /* VideoPlayerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewDelegate.swift; sourceTree = "<group>"; };
 		A56A60A12CAAA21900872CAE /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +220,50 @@
 			path = Configurator;
 			sourceTree = "<group>";
 		};
+		A5571D9D2CAEBBA300191210 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A5571DA52CAEBC9400191210 /* NetworkRequestsViewController.swift */,
+				A5571DAB2CAEC9A600191210 /* NetworkLogCell.swift */,
+				A5571DB62CAEFE3F00191210 /* NetworkRequestsViewInputProtocol.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A5571D9E2CAEBBA800191210 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				A5571DB22CAEFCD300191210 /* NetworkRequestsInteractor.swift */,
+				A5571DB42CAEFD8A00191210 /* NetworkRequestsInteractorInputProtocol.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		A5571D9F2CAEBBB000191210 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A5571DAD2CAEFBE100191210 /* NetworkRequestsPresenter.swift */,
+				A5571DAF2CAEFC8C00191210 /* NetworkRequestsOutputProtocol.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		A5571DA02CAEBBBB00191210 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				A5571DA92CAEC94F00191210 /* NetworkLog.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		A5571DA22CAEBBC700191210 /* Configurator */ = {
+			isa = PBXGroup;
+			children = (
+				A5571DA32CAEBC2B00191210 /* NetworkRequestsConfigurator.swift */,
+			);
+			path = Configurator;
+			sourceTree = "<group>";
+		};
 		A56A609C2CAAA17100872CAE /* DebugPanelModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,11 +321,16 @@
 			path = FeatureTogglesModule;
 			sourceTree = "<group>";
 		};
-		A56A60B12CAB1A6200872CAE /* CrashesModule */ = {
+		A56A60B12CAB1A6200872CAE /* NerworkRequestsModule */ = {
 			isa = PBXGroup;
 			children = (
+				A5571DA22CAEBBC700191210 /* Configurator */,
+				A5571DA02CAEBBBB00191210 /* Entity */,
+				A5571D9F2CAEBBB000191210 /* Presenter */,
+				A5571D9E2CAEBBA800191210 /* Interactor */,
+				A5571D9D2CAEBBA300191210 /* View */,
 			);
-			path = CrashesModule;
+			path = NerworkRequestsModule;
 			sourceTree = "<group>";
 		};
 		A56A60B22CAB1A7B00872CAE /* UnfatalErrorsModule */ = {
@@ -334,7 +403,7 @@
 			children = (
 				A56A60B32CAB1ABF00872CAE /* LoggerModule */,
 				A56A60B22CAB1A7B00872CAE /* UnfatalErrorsModule */,
-				A56A60B12CAB1A6200872CAE /* CrashesModule */,
+				A56A60B12CAB1A6200872CAE /* NerworkRequestsModule */,
 				A5571D882CAD4E1100191210 /* SetValuesModule */,
 				A56A60B02CAB1A3E00872CAE /* FeatureTogglesModule */,
 				A56A609C2CAAA17100872CAE /* DebugPanelModule */,
@@ -360,6 +429,7 @@
 				A5BCE3FF2C87442B004BE4A8 /* VideoThumbnailManager.swift */,
 				A541F5C52C934D6A00F60506 /* AnalyticsManager.swift */,
 				A541F5C72C94855700F60506 /* RemoteConfigManager.swift */,
+				A5571DA72CAEC64400191210 /* NetworkLogger.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -604,11 +674,13 @@
 				A56A60AB2CAAA54E00872CAE /* DebugViewInputProtocol.swift in Sources */,
 				A5571D9C2CADAE1400191210 /* SetValuesTextFieldDelegate.swift in Sources */,
 				A5571D962CAD4F4800191210 /* SetValuesOutputProcotol.swift in Sources */,
+				A5571DB72CAEFE3F00191210 /* NetworkRequestsViewInputProtocol.swift in Sources */,
 				A5D3F96F2CAC2B7100668391 /* FeatureToggleConfigurator.swift in Sources */,
 				A5571D902CAD4EB800191210 /* SetValuesViewController.swift in Sources */,
 				A5571D852CAC38F500191210 /* FeatureToggleOutputProtocol.swift in Sources */,
 				A5BCE3F82C860A35004BE4A8 /* VideoApiManager.swift in Sources */,
 				A5BCE3F22C86012A004BE4A8 /* ListVideosOutputProtocol.swift in Sources */,
+				A5571DA82CAEC64400191210 /* NetworkLogger.swift in Sources */,
 				A5BCE3EE2C85FFE0004BE4A8 /* ListVideosViewInputProtocol.swift in Sources */,
 				A5BCE3EC2C85FEF9004BE4A8 /* ListVideosRouter.swift in Sources */,
 				A5BCE3CA2C85CEC6004BE4A8 /* ListVideosViewController.swift in Sources */,
@@ -624,20 +696,25 @@
 				A5571D922CAD4EDB00191210 /* SetValuesPresenter.swift in Sources */,
 				A5BCE4002C87442B004BE4A8 /* VideoThumbnailManager.swift in Sources */,
 				A5BCE3FC2C8713E5004BE4A8 /* ListVideosDataSource.swift in Sources */,
+				A5571DB02CAEFC8C00191210 /* NetworkRequestsOutputProtocol.swift in Sources */,
 				A56A60B62CAB202000872CAE /* FeatureTogglesViewController.swift in Sources */,
 				A5BCE4172C8870E5004BE4A8 /* VideoPlayerRouterInputProtocol.swift in Sources */,
 				A5BCE3FE2C8715E4004BE4A8 /* ListVideosDelegate.swift in Sources */,
 				A5571D982CAD4F8E00191210 /* SetValuesInteractorInputProtocol.swift in Sources */,
 				A5BCE3E32C85FCD6004BE4A8 /* Video.swift in Sources */,
+				A5571DB32CAEFCD300191210 /* NetworkRequestsInteractor.swift in Sources */,
 				A56A60A92CAAA4CE00872CAE /* DebugOutputProtocol.swift in Sources */,
 				A56A60992CA44EE200872CAE /* VideoPlayerViewDelegate.swift in Sources */,
 				A5571D832CAC38B500191210 /* FeatureToggleInteractorInputProtocol.swift in Sources */,
 				A5571D942CAD4F0F00191210 /* SetValuesInteractor.swift in Sources */,
 				A5BCE3E82C85FE09004BE4A8 /* ListVideosConfigurator.swift in Sources */,
+				A5571DAC2CAEC9A600191210 /* NetworkLogCell.swift in Sources */,
 				A5BCE3EA2C85FEA5004BE4A8 /* ListVideosInteractor.swift in Sources */,
 				A5571D9A2CAD4FC600191210 /* SetValuesViewInputProtocol.swift in Sources */,
 				A5BCE4092C886F29004BE4A8 /* VideoPlayerInteractor.swift in Sources */,
+				A5571DAE2CAEFBE100191210 /* NetworkRequestsPresenter.swift in Sources */,
 				A5BCE3F62C86096B004BE4A8 /* Constants.swift in Sources */,
+				A5571DB52CAEFD8A00191210 /* NetworkRequestsInteractorInputProtocol.swift in Sources */,
 				A56A60AD2CAAA5FE00872CAE /* DebugRouter.swift in Sources */,
 				A5BCE3F42C8601D4004BE4A8 /* ListVideosRouterInputProtocol.swift in Sources */,
 				A56A60A22CAAA21900872CAE /* DebugViewController.swift in Sources */,
@@ -645,11 +722,14 @@
 				A5BCE3F02C86005B004BE4A8 /* ListVideosInteractorInputProtocol.swift in Sources */,
 				A5BCE3C82C85CEC6004BE4A8 /* SceneDelegate.swift in Sources */,
 				A541F5CA2C98871000F60506 /* Extensions.swift in Sources */,
+				A5571DA42CAEBC2B00191210 /* NetworkRequestsConfigurator.swift in Sources */,
 				A56A60A72CAAA46600872CAE /* DebugPresenter.swift in Sources */,
 				A5571D8E2CAD4E8400191210 /* SetValuesConfigurator.swift in Sources */,
+				A5571DAA2CAEC94F00191210 /* NetworkLog.swift in Sources */,
 				A56A60AF2CAAA62D00872CAE /* DebugRouterInputProtocol.swift in Sources */,
 				A5BCE3E52C85FD3E004BE4A8 /* ListVideosPresenter.swift in Sources */,
 				A5BCE4152C8870A3004BE4A8 /* VideoPlayerOutputProtocol.swift in Sources */,
+				A5571DA62CAEBC9400191210 /* NetworkRequestsViewController.swift in Sources */,
 				A5BCE40B2C886F5F004BE4A8 /* VideoPlayerPresenter.swift in Sources */,
 				A5571D812CAC387800191210 /* FeatureToggleViewInputProtocol.swift in Sources */,
 				A5BCE40D2C886F92004BE4A8 /* VideoPlayerRouter.swift in Sources */,

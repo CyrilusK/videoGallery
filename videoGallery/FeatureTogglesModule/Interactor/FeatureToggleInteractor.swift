@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FeatureToggleInteractor: FeatureToggleInteractorInputProtocol{
+final class FeatureToggleInteractor: FeatureToggleInteractorInputProtocol {
     weak var output: FeatureToggleOutputProtocol?
     
     func fetchRemoteConfig() {

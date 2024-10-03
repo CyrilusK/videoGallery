@@ -24,6 +24,10 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
         self.delegate = ListVideosDelegate(presenter: self)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("dataUpdated"), object: nil)
+    }
+    
     func viewDidLoad() {
         Task(priority: .userInitiated) {
             await interactor?.fetchRemoteConfig()
@@ -37,6 +41,7 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
             }
         }
         view?.setupIndicator()
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name("dataUpdated"), object: nil)
     }
     
     func didFetchVideos(_ videos: [Video]) {
@@ -76,6 +81,13 @@ final class ListVideosPresenter: ListVideosOutputProtocol {
     
     func presentDebug() {
         router?.presentDebug()
+    }
+    
+    @objc func reloadData() {
+        Task(priority: .userInitiated) {
+            await interactor?.fetchRemoteConfig()
+        }
+        view?.reloadData()
     }
 }
 
