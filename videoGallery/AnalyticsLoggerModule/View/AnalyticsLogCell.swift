@@ -1,17 +1,16 @@
 //
-//  NetworkLogCell.swift
+//  AnalyticsLogCell.swift
 //  videoGallery
 //
-//  Created by Cyril Kardash on 03.10.2024.
+//  Created by Cyril Kardash on 04.10.2024.
 //
 
 import UIKit
 
-final class NetworkLogCell: UITableViewCell {
+final class AnalyticsLogCell: UITableViewCell {
 
     private let timestampLabel = UILabel()
-    private let urlLabel = UILabel()
-    private let methodStatusLabel = UILabel()
+    private let descriptionLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,7 +22,7 @@ final class NetworkLogCell: UITableViewCell {
     }
 
     private func setupUI() {
-        let stackView = UIStackView(arrangedSubviews: [timestampLabel, urlLabel, methodStatusLabel])
+        let stackView = UIStackView(arrangedSubviews: [timestampLabel, descriptionLabel])
         stackView.axis = .vertical
         stackView.spacing = 4
         
@@ -37,11 +36,12 @@ final class NetworkLogCell: UITableViewCell {
         ])
     }
 
-    func configure(with log: NetworkLog) {
-        timestampLabel.text = log.timestamp
-        urlLabel.text = log.url
-        methodStatusLabel.text = log.method + " \(log.statusCode)"
-        methodStatusLabel.textColor = log.statusCode == 200 ? .systemGreen : .red
+    func configure(with log: AnalyticsLog) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss, dd/MM/yyyy"
+        
+        timestampLabel.text = dateFormatter.string(from: log.timestamp)
+        let parametersString = log.parameters.map { "\($0.key): \($0.value)" }.joined(separator: " ")
+        descriptionLabel.text = "\(log.event): \(parametersString)"
     }
 }
-

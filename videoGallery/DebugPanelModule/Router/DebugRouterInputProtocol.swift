@@ -12,7 +12,5 @@ protocol DebugRouterInputProtocol {
     func navigateToFeatureToggles()
     func navigateToSetValues()
     func navigateToNetworkRequests()
-    func navigateToCrashes()
-    func navigateToUnfatal()
     func navigateToLogger()
 }

@@ -118,6 +118,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     
     func videoDidFinishPlaying() {
         AnalyticsManager().logVideoWatchedEnd(videoTitle: video.title)
+        AnalyticsLogger().logVideoWatchedEnd(videoTitle: video.title)
         isPlaying.toggle()
         view?.updatePlayPauseButtonToReplay()
         view?.showControls()
@@ -132,6 +133,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         interactor?.setPlayRate(rate: rate)
         view?.updateTitleChangeSpeedButton(title: "\(rate)x")
         AnalyticsManager().logPlaySpeedChanged(speed: rate)
+        AnalyticsLogger().logPlaySpeedChanged(speed: rate)
         view?.showControls()
     }
 

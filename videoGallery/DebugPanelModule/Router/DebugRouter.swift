@@ -29,17 +29,8 @@ final class DebugRouter: DebugRouterInputProtocol {
         entry?.navigationController?.pushViewController(networkVC, animated: true)
     }
     
-    func navigateToCrashes() {
-//        let crashesVC = CrashesViewController()
-//        entry?.navigationController?.pushViewController(crashesVC, animated: true)
-    }
-    func navigateToUnfatal() {
-//        let unfatalVC = UnfatalViewController()
-//        self.navigationController?.pushViewController(unfatalVC, animated: true)
-    }
-    
     func navigateToLogger() {
-//        let loggerVC = LoggerViewController()
-//        self.navigationController?.pushViewController(loggerVC, animated: true)
+        let analyticsVC = AnalyticsLoggerConfigurator().configure()
+        entry?.navigationController?.pushViewController(analyticsVC, animated: true)
     }
 }

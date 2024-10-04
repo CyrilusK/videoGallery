@@ -11,7 +11,7 @@ final class DebugViewController: UITableViewController, DebugViewInputProtocol {
     var output: DebugOutputProtocol?
     
     private let closeButton = UIButton(type: .close)
-    private let items = [K.featureToggles, K.setValues, K.networkRequests, K.crashes, K.nonfatal, K.logs]
+    private let items = [K.featureToggles, K.setValues, K.networkRequests, K.logs]
     
     override func viewDidLoad() {
         super.viewDidLoad()

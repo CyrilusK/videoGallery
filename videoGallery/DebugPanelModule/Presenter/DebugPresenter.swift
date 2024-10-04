@@ -24,10 +24,6 @@ final class DebugPresenter: DebugOutputProtocol {
         case 2:
             router?.navigateToNetworkRequests()
         case 3:
-            router?.navigateToCrashes()
-        case 4:
-            router?.navigateToUnfatal()
-        case 5:
             router?.navigateToLogger()
         default:
             break

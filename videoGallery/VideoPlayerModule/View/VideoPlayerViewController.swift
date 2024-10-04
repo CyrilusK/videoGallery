@@ -272,17 +272,21 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
             if windowScene.interfaceOrientation == .portrait {
                 windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
                 AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.fullscreen)
             } else {
                 windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
                 AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.normal)
             }
         } else {
             if UIDevice.current.orientation == .portrait {
                 UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
                 AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.fullscreen)
             } else {
                 UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
                 AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.normal)
             }
         }
         showControls()

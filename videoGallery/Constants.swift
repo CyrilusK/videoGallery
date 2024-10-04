@@ -21,6 +21,7 @@ struct K {
     static let cell = "cell"
     static let toggleCell = "toggleCell"
     static let networkLogCell = "NetworkLogCell"
+    static let analyticsLogCell = "analyticsLogCell"
     
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
@@ -45,8 +46,6 @@ struct K {
     static let featureToggles = "🚩 Feature toggles"
     static let setValues = "✏️ Кастомизация"
     static let networkRequests = "🌐 Cетевые запросы"
-    static let crashes = "❌ Краши (fatal ошибки)"
-    static let nonfatal = "⚠️ Non-fatal ошибки"
     static let logs = "💬 Логи аналитики"
     
     static let columnCount = "columnCount"
@@ -60,4 +59,7 @@ struct K {
     static let buttonSize = "buttonSize"
     static let buttonSpacing = "buttonSpacing"
     static let enterColorName = "Enter color name"
+    
+    static let networkLogsJson = "networkLogs.json"
+    static let analyticsLogJson = "analyticsLog.json"
 }
