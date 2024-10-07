@@ -40,17 +40,21 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
     func reloadData() {
         DispatchQueue.main.async {
             self.videosCollectionView.reloadData()
+            self.videosCollectionView.collectionViewLayout.invalidateLayout()
+            let color = UIColor.fromNamedColor(self.output?.config?.backgroundColor ?? "white")
+            self.videosCollectionView.backgroundColor = color
         }
     }
     
     private func setupCollectionView() {
+        videosCollectionView.backgroundColor = .systemGroupedBackground
         view.addSubview(videosCollectionView)
         videosCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            videosCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            videosCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            videosCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            videosCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            videosCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            videosCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            videosCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            videosCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         ])
         videosCollectionView.register(VideoCell.self, forCellWithReuseIdentifier: K.reuseIdentifier)
     }
@@ -59,6 +63,16 @@ final class ListVideosViewController: UIViewController, ListVideosViewInputProto
         let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            output?.presentDebug()
+        }
     }
 }
 

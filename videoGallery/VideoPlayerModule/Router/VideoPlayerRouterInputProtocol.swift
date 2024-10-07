@@ -9,4 +9,5 @@ import UIKit
 
 protocol VideoPlayerRouterInputProtocol {
     func dismiss()
+    func presentDebug()
 }

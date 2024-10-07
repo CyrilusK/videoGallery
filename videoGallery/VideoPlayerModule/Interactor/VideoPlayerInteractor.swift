@@ -20,7 +20,6 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
             player?.removeTimeObserver(timeObserverToken)
             self.timeObserverToken = nil
         }
-        
         NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
     }
     
@@ -52,7 +51,7 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
             guard let self = self, let player = self.player else { return }
             
             let currentTime = CMTimeGetSeconds(player.currentTime())
-            let totalTime = getDuration()
+            let totalTime = self.getDuration()
             
             self.output?.updateTime(currentTime: Float(currentTime), totalTime: Float(totalTime))
         })
@@ -64,6 +63,11 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
     
     func pauseVideo() {
         player?.pause()
+    }
+    
+    func stopVideo() {
+        player?.pause()
+        player = nil
     }
     
     func getValuesPlayer() -> AVPlayer? {
@@ -100,14 +104,12 @@ final class VideoPlayerInteractor: VideoPlayerInteractorInputProtocol {
         player?.rate = rate
     }
     
-    func fetchRemoteConfig() {
-        Task {
-            guard let config = await RemoteConfigManager().fetchRemoteConfig() else {
-                print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
-                output?.getRemoteConfig(nil)
-                return
-            }
-            output?.getRemoteConfig(config)
+    func fetchRemoteConfig() async {
+        guard let config = await RemoteConfigManager.shared.fetchRemoteConfig() else {
+            print("[DEBUG] – Не удалось получить конфигурацию из Remote Config")
+            output?.getRemoteConfig(nil)
+            return
         }
+        output?.getRemoteConfig(config)
     }
 }

@@ -17,7 +17,7 @@ extension UIColor {
         case "lightgray":
             return .lightGray
         case "white":
-            return .white
+            return .systemGroupedBackground
         case "gray":
             return .gray
         case "red":

@@ -13,14 +13,21 @@ struct K {
     static let decodingError = "Failed to decode data:"
     static let networkError = "Network error:"
     static let serverError = "Failed to download image from server"
+    static let get = "GET"
     
     static let urlAPI = "https://demo0015790.mockable.io"
     
     static let reuseIdentifier = "VideoCell"
+    static let cell = "cell"
+    static let toggleCell = "toggleCell"
+    static let networkLogCell = "NetworkLogCell"
+    static let analyticsLogCell = "analyticsLogCell"
     
     static let skipInterval: Double = 10.0
     static let timeObserverInterval: Double = 0.3
     static let alphaComponent: Double = 0.2
+    static let dismissibleHeight: CGFloat = 200
+    static let timeAnimate : Double = 0.5
     
     // analytics
     static let videoWatchedEnd = "video_watched_to_end"
@@ -32,4 +39,27 @@ struct K {
     static let fullscreen = "fullscreen"
     static let normal = "normal"
     static let keyForRemoteConfig = "video_player_ui_config"
+    
+    //debug menu
+    static let CFBundleShortVersion = "CFBundleShortVersionString"
+    static let CFBundleVersion = "CFBundleVersion"
+    static let featureToggles = "🚩 Feature toggles"
+    static let setValues = "✏️ Кастомизация"
+    static let networkRequests = "🌐 Cетевые запросы"
+    static let logs = "💬 Логи аналитики"
+    
+    static let columnCount = "columnCount"
+    static let backgroundColor = "backgroundColor"
+    static let timeLabelTextColor = "timeLabelTextColor"
+    static let labelBackgroundColor = "labelBackgroundColor"
+    static let segmentBackgroundColor = "segmentBackgroundColor"
+    static let segmentSelectedItemColor = "segmentSelectedItemColor"
+    static let sliderColor = "sliderColor"
+    static let videoConstraintHeight = "videoConstraintHeight"
+    static let buttonSize = "buttonSize"
+    static let buttonSpacing = "buttonSpacing"
+    static let enterColorName = "Enter color name"
+    
+    static let networkLogsJson = "networkLogs.json"
+    static let analyticsLogJson = "analyticsLog.json"
 }

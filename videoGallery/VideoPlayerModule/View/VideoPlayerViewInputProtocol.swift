@@ -9,6 +9,9 @@ import UIKit
 import AVKit
 
 protocol VideoPlayerViewInputProtocol: AnyObject {
+    var currentContainerHeight: CGFloat { get }
+    var defaultHeight: CGFloat { get }
+    
     func setupUI()
     func setupVideoPlayerLayer(player: AVPlayer?)
     func updatePlayPauseButton(isPlaying: Bool)
@@ -20,5 +23,10 @@ protocol VideoPlayerViewInputProtocol: AnyObject {
     func updatePlayPauseButtonToReplay()
     func updateTitleChangeSpeedButton(title: String)
     func setConfigUI(config: VideoPlayerUIConfig)
-    func getPlaybackSpeeds() -> [Float] 
+    func getPlaybackSpeeds() -> [Float]
+    func animateContainerHeight(_ height: CGFloat)
+    func setContainerHeightConstraint(_ newHeight: CGFloat)
+    func animateDismissView()
+    func animateShowDimmedView()
+    func animateShowVideoPlayerView()
 }

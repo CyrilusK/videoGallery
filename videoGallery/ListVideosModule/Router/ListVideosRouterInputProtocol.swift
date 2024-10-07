@@ -9,4 +9,5 @@ import UIKit
 
 protocol ListVideosRouterInputProtocol {
     func presentVideoDetail(_ video: Video)
+    func presentDebug()
 }

@@ -18,4 +18,5 @@ protocol ListVideosOutputProtocol: AnyObject {
     func didSelectVideo(at indexPath: IndexPath)
     func getThumbnail(at indexPath: IndexPath) -> UIImage?
     func getRemoteConfig(_ config: VideoPlayerUIConfig)
+    func presentDebug()
 }

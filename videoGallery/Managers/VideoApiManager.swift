@@ -31,13 +31,26 @@ enum VideoApiError: Error {
 }
 
 final class VideoApiManager {
+//    let session: URLSession
+//
+//    init() {
+//        let config = URLSessionConfiguration.default
+//        config.protocolClasses?.insert(NetworkLogger.self, at: 0)
+//        session = URLSession(configuration: config)
+//    }
+    
     func fetchVideos() async throws -> [Video] {
         guard let url = URL(string: K.urlAPI) else {
+            NetworkLogger().logRequest(url: K.urlAPI, method: K.get, statusCode: 400)
             throw VideoApiError.invalidURL
         }
         
         do {
             let (data, response) = try await URLSession.shared.data(from: url)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                NetworkLogger().logRequest(url: url.absoluteString, method: K.get, statusCode: httpResponse.statusCode)
+            }
             
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                 throw VideoApiError.serverError
@@ -56,6 +69,7 @@ final class VideoApiManager {
             }
         }
         catch let networkError {
+            NetworkLogger().logRequest(url: url.absoluteString, method: K.get, statusCode: 500)
             throw VideoApiError.networkError(networkError)
         }
     }

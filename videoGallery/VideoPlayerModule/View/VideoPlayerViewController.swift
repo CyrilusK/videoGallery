@@ -8,30 +8,29 @@
 import UIKit
 import AVKit
 
-final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputProtocol {
+final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputProtocol, VideoPlayerViewDelegate {
     var output: VideoPlayerOutputProtocol?
+    
     private var playerLayer: AVPlayerLayer?
-    private var videoPlayerHeightConstraint: NSLayoutConstraint!
+    private var containerHeightConstraint: NSLayoutConstraint!
+    private var containerBottomConstraint: NSLayoutConstraint!
+    private var videoViewHeightConstraint: NSLayoutConstraint!
     private var config: VideoPlayerUIConfig?
     
-    private let viewVideoPlayer = UIView()
-    private let centerControlsStackView = UIStackView()
-    private let playPauseButton = UIButton(type: .system)
-    private let muteButton = UIButton(type: .system)
-    private let skipForwardButton = UIButton(type: .system)
-    private let skipBackwardButton = UIButton(type: .system)
-    private let closeButton = UIButton(type: .system)
-    private let fullScreenButton = UIButton(type: .system)
-    private let changeSpeedButton = UIButton(type: .system)
-    private let timeSlider = UISlider()
-    private let currentTimeLabel = UILabel()
-    private let totalTimeLabel = UILabel()
-    private let speedSegmentedControl = UISegmentedControl()
+    private let containerView = UIView()
+    private let viewVideoPlayer = VideoPlayerView()
+    private let dimmedView = UIView()
+    
+    lazy var currentContainerHeight: CGFloat = {
+        CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)) }()
+    lazy var defaultHeight: CGFloat = {
+        CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)) }()
     
     /// ЖЦ вьюконтроллера
     override func viewDidLoad() {
         super.viewDidLoad()
         output?.viewDidLoad()
+        viewVideoPlayer.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -39,39 +38,47 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         output?.viewDidAppear()
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
-        
-        guard let windowInterface = self.view.window?.windowScene?.interfaceOrientation else { return }
-        if windowInterface.isPortrait {
-            videoPlayerHeightConstraint.constant = CGFloat(config?.videoConstraintHeight ?? Float(view.frame.width / 3))
-            fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
-        }
-        else {
-            videoPlayerHeightConstraint.constant = view.frame.width
-            fullScreenButton.setImage(UIImage(systemName: "arrow.down.right.and.arrow.up.left"), for: .normal)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.playerLayer?.frame = self.viewVideoPlayer.bounds
-        })
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { _ in
+            let isPortrait = size.height > size.width
+            if isPortrait {
+                self.containerHeightConstraint.constant = self.defaultHeight
+                self.videoViewHeightConstraint.constant = self.defaultHeight
+                guard let image = UIImage(systemName: "arrow.up.left.and.arrow.down.right") else { return }
+                self.viewVideoPlayer.setImageToFullScreen(image)
+            } else {
+                self.containerHeightConstraint.constant = self.view.frame.height
+                self.videoViewHeightConstraint.constant = self.view.frame.height - self.view.safeAreaInsets.bottom
+                guard let image = UIImage(systemName: "arrow.down.right.and.arrow.up.left") else { return }
+                self.viewVideoPlayer.setImageToFullScreen(image)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.playerLayer?.frame = self.viewVideoPlayer.bounds
+            }
+        }, completion: nil)
     }
     
-    func setConfigUI(config: VideoPlayerUIConfig) {
-        self.config = config
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?){
+        if motion == .motionShake {
+            output?.presentDebug()
+        }
     }
     
     /// Установка UI элементов
+    func setConfigUI(config: VideoPlayerUIConfig) {
+        self.config = config
+        DispatchQueue.main.async {
+            self.viewVideoPlayer.configure(with: config)
+            self.setupViewVideoPlayer()
+        }
+    }
+    
     func setupUI() {
-        print(#function)
-        view.backgroundColor = UIColor.fromNamedColor(config?.backgroundColor ?? "white")
-        setupViewVideoPlayer()
-        setupCenterControlsStackView()
-        setupTimeLabels()
-        setupTimeSlider()
-        setupCloseButton()
-        setupMuteButton()
-        setupFullScreenButton()
-        setupSpeedButtonAndControl()
+        view.backgroundColor = .clear
     }
     
     func setupVideoPlayerLayer(player: AVPlayer?) {
@@ -80,334 +87,219 @@ final class VideoPlayerViewController: UIViewController, VideoPlayerViewInputPro
         guard let playerLayer = playerLayer else {
             return
         }
-        playerLayer.frame = viewVideoPlayer.bounds
+        playerLayer.frame = self.viewVideoPlayer.bounds
         viewVideoPlayer.layer.addSublayer(playerLayer)
-        viewVideoPlayer.layer.addSublayer(centerControlsStackView.layer)
-        viewVideoPlayer.layer.addSublayer(currentTimeLabel.layer)
-        viewVideoPlayer.layer.addSublayer(totalTimeLabel.layer)
-        viewVideoPlayer.layer.addSublayer(timeSlider.layer)
-        viewVideoPlayer.layer.addSublayer(closeButton.layer)
-        viewVideoPlayer.layer.addSublayer(muteButton.layer)
-        viewVideoPlayer.layer.addSublayer(fullScreenButton.layer)
-        viewVideoPlayer.layer.addSublayer(changeSpeedButton.layer)
-        viewVideoPlayer.layer.addSublayer(speedSegmentedControl.layer)
+        viewVideoPlayer.bringUIElementsToFront()
     }
     
     private func setupViewVideoPlayer() {
-        viewVideoPlayer.backgroundColor = .black
-        viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(viewVideoPlayer)
+        containerView.backgroundColor = UIColor.fromNamedColor(config?.backgroundColor ?? "white")
+        dimmedView.backgroundColor = .black
         
-        videoPlayerHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: CGFloat(config?.videoConstraintHeight ?? Float(view.frame.height / 3)))
+        view.addSubview(containerView)
+        view.addSubview(dimmedView)
+        containerView.addSubview(viewVideoPlayer)
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        dimmedView.translatesAutoresizingMaskIntoConstraints = false
+        viewVideoPlayer.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
+        containerBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: defaultHeight + view.safeAreaInsets.bottom)
+        videoViewHeightConstraint = viewVideoPlayer.heightAnchor.constraint(equalToConstant: defaultHeight)
         
         NSLayoutConstraint.activate([
-            viewVideoPlayer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmedView.bottomAnchor.constraint(equalTo: containerView.topAnchor),
+            dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            containerHeightConstraint,
+            containerBottomConstraint,
+            
+            viewVideoPlayer.topAnchor.constraint(equalTo: containerView.topAnchor),
             viewVideoPlayer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             viewVideoPlayer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            videoPlayerHeightConstraint
+            videoViewHeightConstraint
         ])
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
-        viewVideoPlayer.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    private func setupCenterControlsStackView() {
-        setupPlayPauseButton()
-        setupSkipButtons()
-        centerControlsStackView.distribution = .fillProportionally
-        centerControlsStackView.spacing = CGFloat(config?.buttonSpacing ?? 20)
-        centerControlsStackView.axis = .horizontal
-        centerControlsStackView.addArrangedSubview(skipBackwardButton)
-        centerControlsStackView.addArrangedSubview(playPauseButton)
-        centerControlsStackView.addArrangedSubview(skipForwardButton)
-        centerControlsStackView.isHidden = !(config?.uiElementsVisibility["centerControlsStackView"] ?? true)
-        centerControlsStackView.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(centerControlsStackView)
-        NSLayoutConstraint.activate([
-            centerControlsStackView.centerXAnchor.constraint(equalTo: viewVideoPlayer.centerXAnchor),
-            centerControlsStackView.centerYAnchor.constraint(equalTo: viewVideoPlayer.centerYAnchor),
-            playPauseButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
-    }
-    
-    private func setupPlayPauseButton() {
-        playPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-        playPauseButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        playPauseButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        playPauseButton.addTarget(self, action: #selector(didTapPlayPause), for: .touchUpInside)
-        playPauseButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            playPauseButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            playPauseButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
-    }
-    
-    private func setupSkipButtons() {
-        skipForwardButton.setImage(UIImage(systemName: "goforward.10"), for: .normal)
-        skipBackwardButton.setImage(UIImage(systemName: "gobackward.10"), for: .normal)
-        skipForwardButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        skipBackwardButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        skipForwardButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        skipBackwardButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        skipForwardButton.addTarget(self, action: #selector(didTapSkipForward), for: .touchUpInside)
-        skipBackwardButton.addTarget(self, action: #selector(didTapSkipBackward), for: .touchUpInside)
-        skipForwardButton.translatesAutoresizingMaskIntoConstraints = false
-        skipBackwardButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            skipForwardButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            skipForwardButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            skipBackwardButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            skipBackwardButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
-    }
-    
-    private func setupMuteButton() {
-        muteButton.setImage(UIImage(systemName: "speaker.wave.2.fill"), for: .normal)
-        muteButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        muteButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        muteButton.addTarget(self, action: #selector(didTapMute), for: .touchUpInside)
-        muteButton.isHidden = !(config?.uiElementsVisibility["muteButton"] ?? true)
-        muteButton.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(muteButton)
+        let tapGestureForDimmedView = UITapGestureRecognizer(target: self, action: #selector(animateDismissView))
+        dimmedView.addGestureRecognizer(tapGestureForDimmedView)
         
-        NSLayoutConstraint.activate([
-            muteButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
-            muteButton.trailingAnchor.constraint(equalTo: closeButton.leadingAnchor, constant: -10),
-            muteButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            muteButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
+        let tapGestureForVideoView = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
+        viewVideoPlayer.addGestureRecognizer(tapGestureForVideoView)
+        
+        setupPanGesture()
     }
     
-    private func setupTimeLabels() {
-        currentTimeLabel.textColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        currentTimeLabel.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        currentTimeLabel.font = .monospacedDigitSystemFont(ofSize: 14, weight: .regular)
-        currentTimeLabel.text = "00:00"
-        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(currentTimeLabel)
-        
-        totalTimeLabel.textColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        totalTimeLabel.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        totalTimeLabel.font = .monospacedDigitSystemFont(ofSize: 14, weight: .regular)
-        totalTimeLabel.text = output?.getFormattedDuration()
-        totalTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(totalTimeLabel)
-        
-        NSLayoutConstraint.activate([
-            currentTimeLabel.bottomAnchor.constraint(equalTo: viewVideoPlayer.bottomAnchor, constant: -8),
-            currentTimeLabel.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 5),
-            
-            totalTimeLabel.bottomAnchor.constraint(equalTo: viewVideoPlayer.bottomAnchor, constant: -8),
-            totalTimeLabel.trailingAnchor.constraint(equalTo: viewVideoPlayer.trailingAnchor, constant: -5)
-        ])
+    func setupPanGesture() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didDragScreen(gesture:)))
+        panGesture.delaysTouchesBegan = false
+        panGesture.delaysTouchesEnded = false
+        containerView.addGestureRecognizer(panGesture)
     }
     
-    private func setupTimeSlider() {
-        let isThumbCircleEnabled = config?.uiElementsVisibility["isThumbCircleEnabled"] ?? true
-        timeSlider.minimumValue = 0
-        timeSlider.setThumbImage(isThumbCircleEnabled ? UIImage(systemName: "circle.fill") : UIImage(), for: .normal)
-        timeSlider.minimumTrackTintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        timeSlider.maximumTrackTintColor = UIColor.fromNamedColor(config?.sliderColor ?? "lightgray")
-        timeSlider.addTarget(self, action: #selector(didChangeSliderValue), for: .valueChanged)
-        timeSlider.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(timeSlider)
-        NSLayoutConstraint.activate([
-            timeSlider.centerYAnchor.constraint(equalTo: currentTimeLabel.centerYAnchor),
-            timeSlider.trailingAnchor.constraint(equalTo: totalTimeLabel.leadingAnchor, constant: -3),
-            timeSlider.leadingAnchor.constraint(equalTo: currentTimeLabel.trailingAnchor, constant: 3)
-        ])
-    }
-    
-    private func setupCloseButton() {
-        closeButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-        closeButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        closeButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        closeButton.addTarget(self, action: #selector(didTapClose), for: .touchUpInside)
-        closeButton.isHidden = !(config?.uiElementsVisibility["closeButton"] ?? true)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(closeButton)
-        
-        NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
-            closeButton.trailingAnchor.constraint(equalTo: viewVideoPlayer.trailingAnchor, constant: -10),
-            closeButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            closeButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
-    }
-    
-    private func setupFullScreenButton() {
-        fullScreenButton.setImage(UIImage(systemName: "arrow.up.left.and.arrow.down.right"), for: .normal)
-        fullScreenButton.tintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        fullScreenButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        fullScreenButton.addTarget(self, action: #selector(didTapFullScreen), for: .touchUpInside)
-        fullScreenButton.isHidden = !(config?.uiElementsVisibility["fullScreenButton"] ?? true)
-        fullScreenButton.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(fullScreenButton)
-        
-        NSLayoutConstraint.activate([
-            fullScreenButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
-            fullScreenButton.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 10),
-            fullScreenButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            fullScreenButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
-    }
-    
-    private func setupSpeedButtonAndControl() {
-        changeSpeedButton.setTitle("1.0x", for: .normal)
-        changeSpeedButton.setTitleColor(UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white"), for: .normal)
-        changeSpeedButton.translatesAutoresizingMaskIntoConstraints = false
-        changeSpeedButton.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        changeSpeedButton.addTarget(self, action: #selector(didTapChangeSpeedButton), for: .touchUpInside)
-        changeSpeedButton.isHidden = !(config?.uiElementsVisibility["changeSpeedButton"] ?? true)
-        changeSpeedButton.translatesAutoresizingMaskIntoConstraints = false
-        viewVideoPlayer.addSubview(changeSpeedButton)
-        
-        let normalTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.fromNamedColor(config?.segmentedControlBackgroundColor ?? "white") as Any]
-        let selectedTextAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.fromNamedColor(config?.segmentedControlSelectedItemColor ?? "black") as Any]
-        for (index, speed) in (config?.playbackSpeeds ?? [0.5, 1, 1.5, 2]).enumerated() {
-            let title = "\(speed)x"
-            speedSegmentedControl.insertSegment(withTitle: title, at: index, animated: false)
-        }
-        speedSegmentedControl.backgroundColor = UIColor.fromNamedColor(config?.labelBackgroundColor ?? "black")?.withAlphaComponent(K.alphaComponent)
-        speedSegmentedControl.selectedSegmentTintColor = UIColor.fromNamedColor(config?.timeLabelTextColor ?? "white")
-        if let defaultIndex = config?.playbackSpeeds.firstIndex(of: 1.0) {
-            print(defaultIndex)
-            speedSegmentedControl.selectedSegmentIndex = defaultIndex
-        }
-        speedSegmentedControl.setTitleTextAttributes(normalTextAttributes, for: .normal)
-        speedSegmentedControl.setTitleTextAttributes(selectedTextAttributes, for: .selected)
-        speedSegmentedControl.addTarget(self, action: #selector(didChangeSpeed), for: .valueChanged)
-        speedSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        speedSegmentedControl.isHidden = true
-        viewVideoPlayer.addSubview(speedSegmentedControl)
-        
-        NSLayoutConstraint.activate([
-            changeSpeedButton.topAnchor.constraint(equalTo: viewVideoPlayer.topAnchor, constant: 10),
-            changeSpeedButton.leadingAnchor.constraint(equalTo: fullScreenButton.trailingAnchor, constant: 10),
-            changeSpeedButton.widthAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35)),
-            changeSpeedButton.heightAnchor.constraint(equalToConstant: CGFloat(config?.buttonSize ?? 35))
-        ])
-        
-        let count = Float(config?.playbackSpeeds.count ?? 4)
-        NSLayoutConstraint.activate([
-            speedSegmentedControl.topAnchor.constraint(equalTo: changeSpeedButton.bottomAnchor, constant: 10),
-            speedSegmentedControl.leadingAnchor.constraint(equalTo: viewVideoPlayer.leadingAnchor, constant: 10),
-            speedSegmentedControl.widthAnchor.constraint(equalToConstant: CGFloat(count * (config?.buttonSize ?? 35))),
-            speedSegmentedControl.heightAnchor.constraint(equalTo: changeSpeedButton.widthAnchor)
-        ])
-    }
-    
+    /// Функции для изменения состояний UI элементов
     func updatePlayPauseButton(isPlaying: Bool) {
-        let buttonImage = isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill")
-        playPauseButton.setImage(buttonImage, for: .normal)
+        guard let buttonImage = isPlaying ? UIImage(systemName: "pause.fill") : UIImage(systemName: "play.fill") else {
+            return
+        }
+        viewVideoPlayer.setImageToPlayPause(buttonImage)
     }
-    
+
     func updateMuteButton(isMuted: Bool) {
-        let muteImage = isMuted ? UIImage(systemName: "speaker.slash.fill") : UIImage(systemName: "speaker.wave.2.fill")
-        muteButton.setImage(muteImage, for: .normal)
+        guard let muteImage = isMuted ? UIImage(systemName: "speaker.slash.fill") : UIImage(systemName: "speaker.wave.2.fill") else {
+            return
+        }
+        viewVideoPlayer.setImageToMute(muteImage)
     }
-    
+
     func updateTimeSlider(percent: Float) {
-        timeSlider.value = percent
+        viewVideoPlayer.updateTimeSlider(percent: percent)
     }
-    
+
     func updateTimeLabels(currentTime: String, totalTime: String) {
-        currentTimeLabel.text = currentTime
-        totalTimeLabel.text = totalTime
+        viewVideoPlayer.updateTimeLabels(currentTime: currentTime, totalTime: totalTime)
     }
-    
+
     func hideControls() {
-        UIView.animate(withDuration: 0.5) {
-            self.centerControlsStackView.alpha = 0
-            self.muteButton.alpha = 0
-            self.closeButton.alpha = 0
-            self.fullScreenButton.alpha = 0
-            self.timeSlider.alpha = 0
-            self.currentTimeLabel.alpha = 0
-            self.totalTimeLabel.alpha = 0
-            self.changeSpeedButton.alpha = 0
-            self.speedSegmentedControl.alpha = 0
-        }
+        viewVideoPlayer.hideControls()
     }
-    
+
     func showControls() {
-        UIView.animate(withDuration: 0.5) {
-            self.centerControlsStackView.alpha = 1
-            self.muteButton.alpha = 1
-            self.closeButton.alpha = 1
-            self.fullScreenButton.alpha = 1
-            self.timeSlider.alpha = 1
-            self.currentTimeLabel.alpha = 1
-            self.totalTimeLabel.alpha = 1
-            self.changeSpeedButton.alpha = 1
-            self.speedSegmentedControl.alpha = 1
-        }
+        viewVideoPlayer.showControls()
         output?.startHideControlsTimer()
     }
-    
+
     func updatePlayPauseButtonToReplay() {
-        playPauseButton.setImage(UIImage(systemName: "memories"), for: .normal)
+        guard let replayImage = UIImage(systemName: "memories") else {
+            return
+        }
+        viewVideoPlayer.setImageToPlayPause(replayImage)
     }
-    
+
     func updateTitleChangeSpeedButton(title: String) {
-        changeSpeedButton.setTitle(title, for: .normal)
+        viewVideoPlayer.updateTitleChangeSpeedButton(title: title)
     }
-    
+
     func getPlaybackSpeeds() -> [Float] {
         return config?.playbackSpeeds ?? [0.5, 1, 1.5, 2]
     }
     
+    func animateContainerHeight(_ height: CGFloat) {
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.setContainerHeightConstraint(height)
+        }
+        currentContainerHeight = height
+    }
+    
+    func animateShowDimmedView() {
+        dimmedView.alpha = 0
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.dimmedView.alpha = K.timeAnimate
+        }
+    }
+    
+    func animateShowVideoPlayerView() {
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.setContainerBottomConstraint(0)
+        }
+    }
+    
+    func setContainerHeightConstraint(_ newHeight: CGFloat) {
+        containerHeightConstraint.constant = newHeight
+        view.layoutIfNeeded()
+    }
+    
+    private func setContainerBottomConstraint(_ newBottom: CGFloat) {
+        self.containerBottomConstraint.constant = newBottom
+        self.view.layoutIfNeeded()
+    }
+    
     ///Обработчики нажатий
-    @objc private func didTapPlayPause() {
-        output?.didTapPlayPause()
-    }
-    
-    @objc private func didTapMute() {
-        output?.didTapMute()
-    }
-    
-    @objc private func didTapSkipForward() {
-        output?.didTapSkipForward()
-    }
-    
-    @objc private func didTapSkipBackward() {
-        output?.didTapSkipBackward()
-    }
-    
-    @objc private func didChangeSliderValue() {
-        output?.didSeekToPosition(sliderValue: timeSlider.value)
-    }
-    
-    @objc private func didTapClose() {
-        output?.didClose()
-    }
-    
-    @objc private func didTapFullScreen() {
-        guard let windowScene = view.window?.windowScene else { return }
-        
-        if windowScene.interfaceOrientation == .portrait {
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
-            AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
-        }
-        else {
-            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
-            AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
-        }
-        showControls()
-    }
-    
     @objc private func didTapScreen() {
         showControls()
     }
     
-    @objc private func didTapChangeSpeedButton() {
-        speedSegmentedControl.isHidden.toggle()
+    @objc private func didDragScreen(gesture: UIPanGestureRecognizer) {
+        let maxHeight = view.frame.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom
+        let translation = gesture.translation(in: view)
+        output?.handleHeight(gesture, maxHeight, translation)
+    }
+    
+    @objc func animateDismissView() {
+        dimmedView.alpha = K.timeAnimate
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.dimmedView.alpha = 0
+        } completion: { _ in
+            self.output?.didClose()
+        }
+        UIView.animate(withDuration: K.timeAnimate) {
+            self.setContainerBottomConstraint(self.defaultHeight)
+        }
+    }
+    
+    func didTapPlayPause() {
+        output?.didTapPlayPause()
+    }
+    
+    func didTapMute() {
+        output?.didTapMute()
+    }
+    
+    func didTapSkipForward() {
+        output?.didTapSkipForward()
+    }
+    
+    func didTapSkipBackward() {
+        output?.didTapSkipBackward()
+    }
+    
+    func didChangeSliderValue() {
+        output?.didSeekToPosition(sliderValue: viewVideoPlayer.getTimeSliderValue())
+    }
+    
+    func didTapСlose() {
+        animateDismissView()
+    }
+    
+    func didTapFullScreen() {
+        if #available(iOS 16.0, *) {
+            guard let windowScene = view.window?.windowScene else { return }
+            
+            if windowScene.interfaceOrientation == .portrait {
+                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.fullscreen)
+            } else {
+                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.normal)
+            }
+        } else {
+            if UIDevice.current.orientation == .portrait {
+                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.fullscreen)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.fullscreen)
+            } else {
+                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+                AnalyticsManager().logToggleVideoFullScreen(mode: K.normal)
+                AnalyticsLogger().logToggleVideoFullScreen(mode: K.normal)
+            }
+        }
         showControls()
     }
     
-    @objc private func didChangeSpeed() {
-        let selectedIndex = speedSegmentedControl.selectedSegmentIndex
+    func didTapChangeSpeedButton() {
+        viewVideoPlayer.speedSegmentedControlToggle()
+        showControls()
+    }
+    
+    func didChangeSpeed() {
+        let selectedIndex = viewVideoPlayer.getSelectedSegmentIndex()
         output?.didChangeSpeed(selectedIndex: selectedIndex)
-        speedSegmentedControl.isHidden.toggle()
+        viewVideoPlayer.speedSegmentedControlToggle()
     }
 }

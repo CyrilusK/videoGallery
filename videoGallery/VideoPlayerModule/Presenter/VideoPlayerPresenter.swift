@@ -13,33 +13,34 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     var router: VideoPlayerRouterInputProtocol?
     
     private var video: Video
+    private var hideControlsTimer: Timer?
     private var isPlaying = true
     private var isMuted = false
     var isThumbSeek = false
-    
-    private var hideControlsTimer: Timer?
     
     init(video: Video) {
         self.video = video
     }
     
     func viewDidLoad() {
-        interactor?.fetchRemoteConfig()
+        Task(priority: .userInitiated) {
+            await interactor?.fetchRemoteConfig()
+        }
+        view?.setupUI()
+        startHideControlsTimer()
     }
     
     func getRemoteConfig(_ config: VideoPlayerUIConfig?) {
-        DispatchQueue.main.async {
-            if let config = config {
-                self.view?.setConfigUI(config: config)
-            }
-            self.view?.setupUI()
-            self.startHideControlsTimer()
+        if let config = config {
+            self.view?.setConfigUI(config: config)
         }
     }
     
     func viewDidAppear() {
         interactor?.loadVideo(url: video.videoUrl)
         view?.setupVideoPlayerLayer(player: interactor?.getValuesPlayer())
+        view?.animateShowDimmedView()
+        self.view?.animateShowVideoPlayerView()
     }
     
     func didTapPlayPause() {
@@ -82,6 +83,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     }
     
     func didClose() {
+        interactor?.stopVideo()
         router?.dismiss()
     }
     
@@ -116,6 +118,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
     
     func videoDidFinishPlaying() {
         AnalyticsManager().logVideoWatchedEnd(videoTitle: video.title)
+        AnalyticsLogger().logVideoWatchedEnd(videoTitle: video.title)
         isPlaying.toggle()
         view?.updatePlayPauseButtonToReplay()
         view?.showControls()
@@ -130,6 +133,7 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
         interactor?.setPlayRate(rate: rate)
         view?.updateTitleChangeSpeedButton(title: "\(rate)x")
         AnalyticsManager().logPlaySpeedChanged(speed: rate)
+        AnalyticsLogger().logPlaySpeedChanged(speed: rate)
         view?.showControls()
     }
 
@@ -138,5 +142,38 @@ final class VideoPlayerPresenter: VideoPlayerOutputProtocol {
             return 1.0
         }
         return speeds[index]
+    }
+    
+    func handleHeight(_ gesture: UIPanGestureRecognizer, _ maxHeight: CGFloat, _ translation: CGPoint) {
+        guard let currentHeight = view?.currentContainerHeight, let defaultHeight = view?.defaultHeight else { return }
+        let isDraggingDown = translation.y > 0 // true == going down and false == going up
+        let newHeight = currentHeight - translation.y
+        
+        switch gesture.state {
+        case .changed:
+            if newHeight < maxHeight {
+                view?.setContainerHeightConstraint(newHeight)
+            }
+        case .ended:
+            if newHeight < K.dismissibleHeight {
+                view?.animateDismissView()
+            }
+            else if newHeight < defaultHeight {
+                view?.animateContainerHeight(defaultHeight)
+            }
+            else if newHeight < maxHeight && isDraggingDown {
+                view?.animateContainerHeight(defaultHeight)
+            }
+            else if newHeight > defaultHeight && !isDraggingDown {
+                view?.animateContainerHeight(maxHeight)
+            }
+        default:
+            break
+        }
+    }
+    
+    func presentDebug() {
+        router?.presentDebug()
+        interactor?.pauseVideo()
     }
 }
